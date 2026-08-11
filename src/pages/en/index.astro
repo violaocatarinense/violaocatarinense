@@ -1,0 +1,163 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Markdown from '../../components/Markdown.astro';
+
+const proposito = `
+The Violão Catarinense project aims to value and recognize guitarists and composers who are native to, based in, or naturalized in the state of Santa Catarina.
+`;
+
+const idealizacao = `
+Edino Krieger was one of those primarily responsible and a key supporter for the Violão Catarinense project becoming a reality. I remember when we arranged to talk in Blumenau (mid-2011),
+i explained the project to him and that i would like to include all of his compositions for solo guitar on my first album.
+
+I also explained to him that I would like to include other pieces by other composers on the album, asking him with a certain apprehension if I could do so. He answered me immediately: “But why not?”
+
+This was the response that demonstrated to me how humble Edino Krieger was and how much he encouraged other people to compose for the guitar. It was from this moment on that the Violão Catarinense album materialized.
+
+Maestro Krieger's response still resonates in the Violão Catarinense Volume II album and with the recording of a third one. Perhaps this was what was missing for us to move forward: “But why not?”
+<br><br>
+<strong>— Andrei Uller</strong>
+`;
+
+const esclarecimentos = `
+**“To participate in the project, must the guitarist or composer necessarily be a native of Santa Catarina??”**
+
+No. The proposal is to consider the people who contribute to the culture of the state of Santa Catarina through their guitar compositions—whether for solo guitar, duos, trios, or other instrumental arrangements—regardless of
+their origin. History shows us that the indigenous peoples are the only ones who could perhaps be labeled as “Catarinenses,” given that the term itself is not part of their language; Santa Catarina is a territory that was gradually settled by 
+people from various locations around the globe, characterizing Santa Catarina as a kind of cultural mosaic. 
+
+**“Is there an official copyright assignment document for new participants?"**
+
+After the completion of a new recording, a document will be sent to the participating composer or guitarist containing the authorization and assignment of copyright 
+for the performed work, for inclusion in a possible future album to be released.
+`;
+
+const apoio = `
+In December 2024, the project was selected by the Culture Support Program Notice (PROCULT) of the Pro-Rectory of Extension at the Santa Catarina State University (UDESC). Box Violão Catarinense is the title of the project running through 2025 and 2026,
+receiving funding for the release of a box set containing a new album to be launched in 2026, along with the first two volumes. In addition to these resources, the project included the participation of culture scholarship student Beatriz de Souza Vieira in 2025, 
+who was responsible for the initial research developed in the project. Currently, in 2026, it includes culture scholarship student Eduardo Nascimento, who is responsible for the programming of this website.
+`;
+
+const bia = `
+She is currently a Bachelor’s student in Classical Guitar at the State University of Santa Catarina (UDESC), studying under the guidance of professors André Ferreira de Moura and Luiz Mantovani. Beatriz recently participated in masterclasses 
+with the following guitarists: Marisa Sardo and Giacomo Copiello. In Joinville, she began her musical studies at the Escola de Música Villa Lobos conservatory with professors Marcos Figueiredo, Lausivan Corrêa, Claudenor Fávero, and Nicolau Schmidt, 
+where she remained for 10 years until entering the university.
+`;
+
+const edu = `
+Currently a Bachelor’s student in Classical Guitar at the State University of Santa Catarina (UDESC), studying under the guidance of Professor Luiz Mantovani. In 2025, he performed at the UDESC University Library and at the UFSC Igrejinha (Little Church) of the 
+Federal University of Santa Catarina, as part of the UDESC Guitar Ensemble (Camerata de Violões). He has participated in masterclasses led by guitarists Marisa Sardo, Gilson Antunes, Giacomo Copiello, and Marco Lima. 
+He began his musical studies as a self-taught player, motivated by videos of guitarist Fabio Lima. Later, upon deciding to take the entrance exam for the Music program at UDESC, he sought guidance from guitarist Leonardo Muller, a UDESC alumnus, 
+in order to properly prepare for admission to the course.
+`;
+---
+
+<Layout title="Violão Catarinense">
+    
+    <div class="space-y-24 py-12">
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <div>
+                <h2 class="mb-6 text-3xl font-bold text-left text-red-700">Conception</h2>
+                <div class="text-lg text-justify leading-relaxed text-stone-800">
+                    <Markdown content={idealizacao} />
+                </div>
+            </div>
+            
+            <div class="flex justify-center md:justify-end mt-4 md:mt-35">
+                <figure class="w-full max-w-md group transition-all duration-300 ease-out hover:scale-115 hover:-translate-y-2">
+                    
+                    <div class="p-2 bg-white border border-rose-500 rounded-xl shadow-lg transition-shadow duration-300 group-hover:shadow-2xl">
+                        <img 
+                            src="/images/edino.jpg" 
+                            alt="Edino Krieger e Andrei Uller" 
+                            class="rounded-lg w-full h-auto object-cover" 
+                        />
+                    </div>
+                    
+                    <figcaption class="mt-4 text-center text-sm font-medium text-stone-600 italic">
+                        Edino Krieger e Andrei Uller (2011)
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto px-4">
+            <h2 class="mb-6 text-3xl font-bold text-center text-red-700">Purpose</h2>
+            <div class="text-xl text-justify leading-relaxed text-stone-800">
+                <Markdown content={proposito} />
+            </div>
+        </section>
+
+        <section class="bg-white/60 rounded-2xl p-8 md:p-12 border border-stone-200 shadow-sm">
+            <h2 class="mb-8 text-3xl font-bold text-center text-red-700">Clarifications</h2>
+            
+             <div class="text-lg text-justify leading-relaxed space-y-4 [&_strong]:text-red-700 text-stone-800">
+                <Markdown content={esclarecimentos} />
+            </div>
+        </section>
+        
+        <section class="max-w-4xl mx-auto px-4">
+    <div>
+        <h2 class="mb-6 text-3xl font-bold text-center text-red-700">Support</h2>
+        <div class="text-xl text-justify leading-relaxed text-stone-800">
+            <Markdown content={apoio} />
+        </div>
+    </div>
+</section>
+
+<section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mt-16">
+    <div>
+        <h2 class="mb-6 text-3xl font-bold text-left text-red-700">Eduardo Nascimento</h2>
+        <div class="text-lg text-justify leading-relaxed text-stone-800">
+            <Markdown content={edu} />
+        </div>
+    </div>
+    
+    <div class="flex justify-center md:justify-end mt-4 md:mt-22">
+        <figure class="w-full max-w-md group transition-all duration-300 ease-out hover:scale-115 hover:-translate-y-2">
+            
+            <div class="p-2 bg-white border border-rose-500 rounded-xl shadow-lg transition-shadow duration-300 group-hover:shadow-2xl">
+                <img 
+                    src="/images/edu.jpg" 
+                    alt="Eduardo Nascimento" 
+                    class="w-full h-64 md:h-72 object-cover object-center" 
+                />
+            </div>
+            <figcaption class="mt-4 text-center text-sm font-medium text-stone-600 italic">
+                        Eduardo Nascimento (2025)
+                    </figcaption>
+            
+        </figure>
+    </div>
+</section>
+
+<section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+    <div>
+        <h2 class="mb-6 text-3xl font-bold text-left text-red-700">Beatriz de Souza Vieira</h2>
+        <div class="text-lg text-justify leading-relaxed text-stone-800">
+            <Markdown content={bia} />
+        </div>
+    </div>
+    
+    <div class="flex justify-center md:justify-end mt-4 md:mt-18">
+        <figure class="w-full max-w-md group transition-all duration-300 ease-out hover:scale-115 hover:-translate-y-2">
+            
+            <div class="p-2 bg-white border border-rose-500 rounded-xl shadow-lg transition-shadow duration-300 group-hover:shadow-2xl">
+                <img 
+                    src="/images/bia.avif" 
+                    alt="Beatriz de Souza Vieira" 
+                    class="w-full h-64 md:h-72 object-cover object-center" 
+                />
+            </div>
+            <figcaption class="mt-4 text-center text-sm font-medium text-stone-600 italic">
+                        Beatriz de Souza Vieira (2024)
+                    </figcaption>
+            
+        </figure>
+    </div>
+</section>
+        
+    
+
+</Layout>

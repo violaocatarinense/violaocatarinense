@@ -1,0 +1,378 @@
+---
+// Importando o seu Layout
+import Layout from '../../layouts/Layout.astro';
+
+// 1. DADOS: Década 80
+const levino = [
+    {
+        src: '/images/registros/ricardo180.avif',
+        legenda: 'Ricardo Boppré divulga curso e novo LP ',
+        fonte: 'Jornal Diário Catarinense - Florianópolis - 4 de junho de 1986'
+    },
+    {
+        src: '/images/registros/2seminario.avif',
+        legenda: '2º Seminário de Violão em Joinville',
+        fonte: 'jornal Diário Catarinense - Florianópolis - 30 de junho de 1986'
+    },
+    {
+        src: '/images/registros/eduardocasta1.avif',
+        legenda: 'Recital de Eduardo Castañera em Florianópolis',
+        fonte: 'Jornal Diário Catarinense - Florianópolis - 2 de setembro de 1986'
+    },
+];
+
+// 2. DADOS: Década 90
+const recortesImprensa = [
+   {
+        src: '/images/registros/everton1994.avif', // Substitua pelos seus caminhos reais
+        legenda: 'Everton Gloeden, 1 de novembro de 1993',
+        fonte: 'Blumenau em Cadernos - Janeiro de 1994'
+    },
+    {
+        src: '/images/registros/duoeuropa94.avif', // Substitua pelos seus caminhos reais
+        legenda: 'Dupla de Violonistas Europeus, 3 de maio de 1994',
+        fonte: 'Blumenau em Cadernos - Julho de 1994'
+    },
+];
+---
+
+<Layout title="Violão Catarinense">
+    
+    <div class="max-w-6xl mx-auto py-16 px-6 space-y-24">
+
+          {/* =========================================
+    CABEÇALHO PRINCIPAL
+========================================== */}
+<div class="flex items-center justify-center gap-4 md:gap-6 py-4">
+    
+    {/* Ícone Estático: Pilha de Jornais */}
+    <svg viewBox="0 0 100 100" class="newspaper-icon shrink-0">
+        <defs>
+            <linearGradient id="pageGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f5f5f4" />
+                <stop offset="100%" stop-color="#e7e5e4" />
+            </linearGradient>
+            {/* Filtro de sombra para separar as folhas */}
+            <filter id="paperShadow" x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="1" dy="2" stdDeviation="1.5" flood-opacity="0.3"/>
+            </filter>
+        </defs>
+
+        {/* JORNAL 1 (Base da pilha - levemente rotacionado para a esquerda) */}
+        <g transform="rotate(-8 50 50) translate(-2, 4)" filter="url(#paperShadow)">
+            <rect x="10" y="10" width="80" height="80" rx="2" fill="url(#pageGrad)" stroke="#a8a29e" stroke-width="0.5"/>
+            <rect x="20" y="25" width="60" height="4" rx="0.5" fill="#a8a29e"/>
+            <rect x="20" y="31" width="40" height="4" rx="0.5" fill="#a8a29e"/>
+            <rect x="20" y="45" width="60" height="1.5" rx="0.2" fill="#d6d3d1"/>
+            <rect x="20" y="49" width="55" height="1.5" rx="0.2" fill="#d6d3d1"/>
+            <rect x="20" y="53" width="60" height="1.5" rx="0.2" fill="#d6d3d1"/>
+            <rect x="20" y="57" width="45" height="1.5" rx="0.2" fill="#d6d3d1"/>
+        </g>
+        
+        {/* JORNAL 2 (Meio da pilha - rotacionado para a direita) */}
+        <g transform="rotate(6 50 50) translate(3, -2)" filter="url(#paperShadow)">
+            <rect x="10" y="10" width="80" height="80" rx="2" fill="url(#pageGrad)" stroke="#a8a29e" stroke-width="0.5"/>
+            <rect x="20" y="25" width="30" height="4" rx="0.5" fill="#a8a29e"/>
+            <rect x="55" y="25" width="25" height="4" rx="0.5" fill="#a8a29e"/>
+            <rect x="20" y="31" width="60" height="4" rx="0.5" fill="#a8a29e"/>
+            <rect x="20" y="45" width="60" height="1.5" rx="0.2" fill="#d6d3d1"/>
+            <rect x="20" y="49" width="60" height="1.5" rx="0.2" fill="#d6d3d1"/>
+            <rect x="20" y="53" width="50" height="1.5" rx="0.2" fill="#d6d3d1"/>
+        </g>
+
+        {/* JORNAL 3 (Topo da pilha - quase reto, destaque em vermelho escuro) */}
+        <g transform="rotate(-2 50 50) translate(0, 0)" filter="url(#paperShadow)">
+            <rect x="10" y="10" width="80" height="80" rx="2" fill="url(#pageGrad)" stroke="#991b1b" stroke-width="1"/>
+            <rect x="20" y="25" width="60" height="6" rx="0.5" fill="#7f1d1d"/>
+            <rect x="20" y="33" width="60" height="1.5" rx="0.2" fill="#991b1b"/>
+            <rect x="20" y="45" width="60" height="1.5" rx="0.2" fill="#a8a29e"/>
+            <rect x="20" y="49" width="60" height="1.5" rx="0.2" fill="#a8a29e"/>
+            <rect x="20" y="53" width="60" height="1.5" rx="0.2" fill="#a8a29e"/>
+            <rect x="20" y="57" width="40" height="1.5" rx="0.2" fill="#a8a29e"/>
+        </g>
+    </svg>
+    
+    {/* Bloco de Texto (Título + Subtítulo agrupados) */}
+    <div class="flex flex-col items-start">
+        <h1 class="text-4xl md:text-5xl font-bold text-red-700 font-['Cinzel'] uppercase tracking-tight mb-0">
+            <span class="relative after:absolute after:bottom-2 after:left-0 after:w-full after:h-[2px] after:bg-red-700">
+             Registros Históricos
+            </span>
+        </h1>
+        
+        <p class="text-xl text-stone-600 mt-1 font-serif italic text-left max-w-lg leading-snug">
+            Recortes da Trajetória do Violão em Santa Catarina nas Décadas de 1980 e 1990
+        </p>
+    </div>
+
+</div>
+
+
+
+        {/* =========================================
+            SEÇÃO 1: Década de 80
+        ========================================== */}
+        <div>
+            <div class="mb-10 text-center">
+                <h2 class="flex items-center gap-4 text-xl md:text-2xl font-semibold text-red-700 font-['Cinzel'] tracking-wide uppercase">
+                    <span class="h-px flex-1 bg-gradient-to-r from-transparent to-red-700"></span>
+                    <span class="drop-shadow-[0_2px_2px_rgba(0,0,0,0.25)] whitespace-nowrap">
+                        Década de 80
+                    </span>
+                    <span class="h-px flex-1 bg-gradient-to-l from-transparent to-red-700"></span>
+                </h2>
+                <p class="text-lg text-stone-500 font-serif italic mt-3 max-w-2xl mx-auto">
+                   Notícias, artigos e publicações diversas na mídia impressa catarinense
+                </p>
+            </div>
+
+            {/* Container com Botões e Rolagem */}
+            <div class="relative group/section">
+                
+                {/* Botão Esquerdo */}
+                <button 
+                    id="prev-btn" 
+                    class="absolute left-[-20px] top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl rounded-full p-3 text-red-700 hover:bg-red-700 hover:text-white transition-all opacity-0 group-hover/section:opacity-100 hidden md:block border border-stone-200"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                    </svg>
+                </button>
+
+                {/* Lista de Imagens */}
+                <section 
+                    id="scroll-container"
+                    class="flex overflow-x-auto gap-8 pb-4 no-scrollbar snap-x snap-mandatory scroll-smooth"
+                >
+                    {levino.map((registro) => (
+                        <div 
+                            class="gallery-item cursor-pointer bg-white p-4 rounded-xl shadow-[0_8px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.15)] transform transition hover:-translate-y-1 border border-stone-100 group min-w-[280px] md:min-w-[350px] snap-center"
+                            data-src={registro.src}
+                            data-legenda={registro.legenda}
+                            data-fonte={registro.fonte}
+                        >
+                            <div class="relative overflow-hidden rounded-md mb-4 shadow-sm bg-stone-200">
+                                <img 
+                                    src={registro.src} 
+                                    alt={registro.legenda} 
+                                    class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+                                />
+                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-12 h-12 text-white">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="px-2">
+                                <p class="text-lg font-medium text-stone-800 leading-snug h-14 line-clamp-2">
+                                    {registro.legenda}
+                                </p>
+                                <p class="text-sm text-stone-500 font-serif italic mt-2">
+                                    Fonte: {registro.fonte}
+                                </p>
+                            </div>
+                        </div>
+                    ))} 
+                </section>
+
+                {/* Botão Direito */}
+                <button 
+                    id="next-btn" 
+                    class="absolute right-[-20px] top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl rounded-full p-3 text-red-700 hover:bg-red-700 hover:text-white transition-all opacity-0 group-hover/section:opacity-100 hidden md:block border border-stone-200"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                </button>
+
+            </div>
+        </div>
+
+        {/* =========================================
+            SEÇÃO 2: Década de 90 
+        ========================================== */}
+        
+            <div class="mt-16">
+            <div class="mb-10 text-center">
+                <h2 class="flex items-center gap-4 text-xl md:text-2xl font-semibold text-red-700 font-['Cinzel'] tracking-wide uppercase">
+                    <span class="h-px flex-1 bg-gradient-to-r from-transparent to-red-700"></span>
+                    
+                    <span class="drop-shadow-[0_2px_2px_rgba(0,0,0,0.25)] whitespace-nowrap">
+                        Década de 90
+                    </span>
+                    
+                    <span class="h-px flex-1 bg-gradient-to-l from-transparent to-red-700"></span>
+                </h2>
+                <p class="text-lg text-stone-500 font-serif italic mt-3 max-w-2xl mx-auto">
+                    Notícias, artigos e publicações diversas na mídia impressa catarinense
+                </p>
+            </div>
+
+            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                {recortesImprensa.map((recorte) => (
+                    <div 
+                        class="gallery-item cursor-pointer bg-white p-4 rounded-xl shadow-[0_8px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_15px_30px_rgba(0,0,0,0.15)] transform transition hover:-translate-y-1 border border-stone-100 group"
+                        data-src={recorte.src}
+                        data-legenda={recorte.legenda}
+                        data-fonte={recorte.fonte}
+                    >
+                        <div class="relative overflow-hidden rounded-md mb-4 shadow-sm bg-stone-200">
+                            <img 
+                                src={recorte.src} 
+                                alt={recorte.legenda} 
+                                class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            
+                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-12 h-12 text-white">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="px-2">
+                            <p class="text-lg font-medium text-stone-800 leading-snug">
+                                {recorte.legenda}
+                            </p>
+                            <p class="text-sm text-stone-500 font-serif italic mt-2">
+                                Fonte: {recorte.fonte}
+                            </p>
+                        </div>
+                    </div>
+                ))}
+            </section>
+        </div>
+        
+
+    </div>
+
+
+    {/* =========================================
+        MODAL (A JANELA QUE ABRE A FOTO GRANDE)
+    ========================================== */}
+    <div id="imageModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300 p-4">
+        
+        <button id="closeModal" class="absolute top-6 right-6 text-white/70 hover:text-white hover:rotate-90 transition-all duration-300 cursor-pointer p-2 z-[110]">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <div id="modalContent" class="bg-white p-4 md:p-6 rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.5)] max-w-5xl max-h-[90vh] flex flex-col items-center transform scale-95 transition-transform duration-300">
+            <img 
+                id="modalImage" 
+                src="" 
+                alt="" 
+                class="max-h-[65vh] w-auto object-contain border border-stone-200 shadow-inner"
+            />
+            <div class="mt-5 text-center px-4">
+                <p id="modalCaption" class="text-xl md:text-2xl font-bold text-stone-900 font-['Cinzel'] tracking-wide"></p>
+                <p id="modalSource" class="text-md text-stone-600 font-serif italic mt-2"></p>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    /* Esconde a barra de rolagem nativa, mantendo a funcionalidade via botões */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE e Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
+    /* Manti o custom-scrollbar caso você precise dele depois em outro lugar */
+    .custom-scrollbar::-webkit-scrollbar { height: 8px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f5f5f4; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #b91c1c; border-radius: 10px; }
+
+    /* =========================================
+       TAMANHO DO ÍCONE DE JORNAIS
+    ========================================== */
+    .newspaper-icon {
+        width: 70px;
+        height: 70px;
+    }
+    
+    @media (min-width: 768px) {
+        .newspaper-icon { width: 90px; height: 90px; }
+    }
+</style>
+
+<script>
+    // =========================================
+    // LÓGICA DO CARROSSEL DE SETAS
+    // =========================================
+    const container = document.getElementById('scroll-container');
+    const nextBtn = document.getElementById('next-btn');
+    const prevBtn = document.getElementById('prev-btn');
+
+    if (container && nextBtn && prevBtn) {
+        // Largura do card + gap do Tailwind (md:min-w-[350px] + gap-8 que é 32px)
+        const scrollAmount = 350 + 32; 
+
+        nextBtn.addEventListener('click', () => {
+            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+
+        prevBtn.addEventListener('click', () => {
+            container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+    }
+
+    // =========================================
+    // LÓGICA DO MODAL
+    // =========================================
+    const modal = document.getElementById('imageModal');
+    const modalContent = document.getElementById('modalContent');
+    const modalImg = document.getElementById('modalImage'); // <-- TOTALMENTE CORRIGIDO AQUI (Sem o 'as HTMLImageElement')
+    const modalCaption = document.getElementById('modalCaption');
+    const modalSource = document.getElementById('modalSource');
+    const closeBtn = document.getElementById('closeModal');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    galleryItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const src = item.getAttribute('data-src');
+            const legenda = item.getAttribute('data-legenda');
+            const fonte = item.getAttribute('data-fonte');
+
+            if (modalImg) modalImg.src = src || '';
+            if (modalCaption) modalCaption.textContent = legenda;
+            if (modalSource) modalSource.textContent = `Fonte: ${fonte}`;
+
+            modal?.classList.remove('hidden');
+            modal?.classList.add('flex');
+            
+            requestAnimationFrame(() => {
+                modal?.classList.remove('opacity-0');
+                modalContent?.classList.remove('scale-95');
+                modalContent?.classList.add('scale-100');
+            });
+        });
+    });
+
+    const fecharModal = () => {
+        modal?.classList.add('opacity-0');
+        modalContent?.classList.remove('scale-100');
+        modalContent?.classList.add('scale-95');
+        
+        setTimeout(() => {
+            modal?.classList.add('hidden');
+            modal?.classList.remove('flex');
+        }, 300);
+    };
+
+    closeBtn?.addEventListener('click', fecharModal);
+
+    modal?.addEventListener('click', (e) => {
+        if (e.target === modal) fecharModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal?.classList.contains('hidden')) {
+            fecharModal();
+        }
+    });
+</script>

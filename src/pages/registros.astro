@@ -1,0 +1,370 @@
+---
+// Importando o seu Layout
+import Layout from '../layouts/Layout.astro';
+
+// Links de navegação
+const menuLateral = [
+    { linkText: 'Décadas de 20 a 50', href: '/registros/20' },
+    { linkText: 'Década de 60', href: '/registros/60' },
+    { linkText: 'Década de 70', href: '/registros/70' },
+    { linkText: 'Décadas de 80 e 90', href: '/registros/80' },
+    { linkText: 'Anos 2000 - Presente', href: '/registros/2000' }
+
+];
+
+// Dados dos destaques (substitua com suas imagens e textos reais)
+const destaques = [
+    {
+        src: '/images/registros/abarrios.avif', // Substitua pelos seus caminhos reais
+        legenda: 'Agustín Barrios apresentando recital em Florianópolis',
+        data: '17 de agosto de 1929'
+    },
+    {
+        src: '/images/registros/levino1.avif',
+        legenda: 'Levino Albano da Conceição apresentando recital em Florianópolis',
+        data: '26 de junho de 1923',
+    },
+    {
+        src: '/images/registros/alvarop1978.avif', // Substitua pelos seus caminhos reais
+        legenda: 'Alvaro Pierri se apresentando em Florianópolis, 1978',
+        data: '9 de setembro de 1978'
+    },
+{
+        src: '/images/registros/baden1979.avif', // Substitua pelos seus caminhos reais
+        legenda: 'Baden Powel se apresentando em Florianópolis, 1979',
+        data: '6 de outubro de 1979'
+    },
+];
+---
+
+<Layout title="Violão Catarinense">
+    
+    <div class="max-w-7xl mx-auto py-7 px-4 md:px-6">
+
+        {/* =========================================
+            CABEÇALHO PRINCIPAL
+        ========================================== */}
+        <div class="flex flex-col items-center text-center py-4">
+            
+            {/* Título alterado para empilhar no mobile (flex-col) e manter lado a lado no desktop (md:flex-row) */}
+            <h1 class="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6 text-3xl md:text-5xl font-bold text-red-700 font-['Cinzel'] uppercase tracking-tight text-center">
+                
+                {/* Ícone Estático: Pilha de Jornais */}
+                <svg viewBox="0 0 100 100" class="newspaper-icon shrink-0">
+                    <defs>
+                        <linearGradient id="pageGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#f5f5f4" />
+                            <stop offset="100%" stop-color="#e7e5e4" />
+                        </linearGradient>
+                        <filter id="paperShadow" x="-10%" y="-10%" width="120%" height="120%">
+                            <feDropShadow dx="1" dy="2" stdDeviation="1.5" flood-opacity="0.3"/>
+                        </filter>
+                    </defs>
+
+                    {/* JORNAL 1 */}
+                    <g transform="rotate(-8 50 50) translate(-2, 4)" filter="url(#paperShadow)">
+                        <rect x="10" y="10" width="80" height="80" rx="2" fill="url(#pageGrad)" stroke="#a8a29e" stroke-width="0.5"/>
+                        <rect x="20" y="25" width="60" height="4" rx="0.5" fill="#a8a29e"/>
+                        <rect x="20" y="31" width="40" height="4" rx="0.5" fill="#a8a29e"/>
+                        <rect x="20" y="45" width="60" height="1.5" rx="0.2" fill="#d6d3d1"/>
+                        <rect x="20" y="49" width="55" height="1.5" rx="0.2" fill="#d6d3d1"/>
+                        <rect x="20" y="53" width="60" height="1.5" rx="0.2" fill="#d6d3d1"/>
+                        <rect x="20" y="57" width="45" height="1.5" rx="0.2" fill="#d6d3d1"/>
+                    </g>
+                    
+                    {/* JORNAL 2 */}
+                    <g transform="rotate(6 50 50) translate(3, -2)" filter="url(#paperShadow)">
+                        <rect x="10" y="10" width="80" height="80" rx="2" fill="url(#pageGrad)" stroke="#a8a29e" stroke-width="0.5"/>
+                        <rect x="20" y="25" width="30" height="4" rx="0.5" fill="#a8a29e"/>
+                        <rect x="55" y="25" width="25" height="4" rx="0.5" fill="#a8a29e"/>
+                        <rect x="20" y="31" width="60" height="4" rx="0.5" fill="#a8a29e"/>
+                        <rect x="20" y="45" width="60" height="1.5" rx="0.2" fill="#d6d3d1"/>
+                        <rect x="20" y="49" width="60" height="1.5" rx="0.2" fill="#d6d3d1"/>
+                        <rect x="20" y="53" width="50" height="1.5" rx="0.2" fill="#d6d3d1"/>
+                    </g>
+
+                    {/* JORNAL 3 */}
+                    <g transform="rotate(-2 50 50) translate(0, 0)" filter="url(#paperShadow)">
+                        <rect x="10" y="10" width="80" height="80" rx="2" fill="url(#pageGrad)" stroke="#991b1b" stroke-width="1"/>
+                        <rect x="20" y="25" width="60" height="6" rx="0.5" fill="#7f1d1d"/>
+                        <rect x="20" y="33" width="60" height="1.5" rx="0.2" fill="#991b1b"/>
+                        <rect x="20" y="45" width="60" height="1.5" rx="0.2" fill="#a8a29e"/>
+                        <rect x="20" y="49" width="60" height="1.5" rx="0.2" fill="#a8a29e"/>
+                        <rect x="20" y="53" width="60" height="1.5" rx="0.2" fill="#a8a29e"/>
+                        <rect x="20" y="57" width="40" height="1.5" rx="0.2" fill="#a8a29e"/>
+                    </g>
+                </svg>
+                
+                <span class="relative pb-1 md:pb-0 after:absolute after:-bottom-1 md:after:-bottom-2 after:left-0 after:w-full after:h-[2px] after:bg-red-700">
+                    Registros Históricos
+                </span>
+            </h1>
+            
+            {/* Margens negativas restauradas no desktop e textos centralizados no mobile */}
+            <div class="mt-4 md:-mt-2 ml-0 md:ml-27 px-2">
+                <p class="text-lg md:text-xl text-stone-600 font-serif italic text-center md:text-left">
+                    Recortes da Trajetória do Violão em Santa Catarina
+                </p>
+            </div>
+            <div class="mt-2 md:mt-0 ml-0 md:ml-14 px-2">
+                <p class="text-lg md:text-xl text-stone-600 font-serif italic text-center md:text-left">
+                    Os registros foram encontrados em consulta à <br class="hidden md:block" /> Hemeroteca Digital Catarinense.
+                </p>
+            </div>
+        </div>
+
+        {/* =========================================
+            SESSÃO DE CONTEÚDO (Menu + Carrossel)
+        ========================================== */}
+        <div class="mt-12 md:mt-16 flex flex-col md:flex-row gap-10 md:gap-12">
+            
+            {/* LADO ESQUERDO: MENU DE DÉCADAS */}
+            <aside class="w-full md:w-1/3 max-w-sm shrink-0 mx-auto md:mx-0">
+                <h2 class="text-2xl font-bold font-['Cinzel'] text-red-800 text-center md:text-left mb-6 border-b-2 border-red-700/20 pb-2">
+                    Selecione uma Década
+                </h2>
+                
+                <nav class="flex flex-col gap-4">
+                    {menuLateral.map((item) => (
+                        <a 
+                            href={item.href} 
+                            class="group relative overflow-hidden flex items-center justify-between px-6 py-4 bg-stone-100 border border-stone-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 no-underline"
+                        >
+                            <span class="absolute inset-0 w-0 bg-red-700 transition-all duration-300 ease-out group-hover:w-full"></span>
+                            
+                            <span class="relative z-10 text-red-800 font-semibold font-['Cinzel'] tracking-wide group-hover:text-white transition-colors duration-300">
+                                {item.linkText}
+                            </span>
+                            
+                            <svg xmlns="http://www.w3.org/2000/svg" class="relative z-10 w-5 h-5 text-red-700 group-hover:text-white transition-colors duration-300 transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    ))}
+                </nav>
+            </aside>
+
+            {/* LADO DIREITO: DESTAQUES (Carrossel) */}
+            <main class="w-full md:w-2/3 flex flex-col">
+                
+                {/* Título com alinhamento flexível (centro mobile, direita desktop) */}
+                <h2 class="text-2xl font-bold font-['Cinzel'] text-red-800 text-center md:text-right mb-6 border-b-2 border-red-700/20 pb-2 max-w-xl mx-auto md:ml-auto md:mr-0 w-full">
+                    Destaques do Acervo
+                </h2>
+                
+                {/* Contêiner principal centrado no mobile e alinhado à direita no desktop (mx-auto md:ml-auto md:mr-0) */}
+                <div class="relative bg-white rounded-xl shadow-md border border-stone-200 p-3 md:p-4 overflow-hidden flex-1 flex items-center group max-w-xl mx-auto md:ml-auto md:mr-0 w-full">
+                    
+                    {/* Botão Anterior */}
+                    <button id="btn-prev" class="absolute left-1 z-20 bg-white/90 hover:bg-red-700 text-stone-800 hover:text-white p-1.5 rounded-full shadow-lg transition-colors duration-300 focus:outline-none hidden md:flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+
+                    {/* Container dos Cartões (Carrossel) */}
+                    <div id="carousel-track" class="flex transition-transform duration-500 ease-out w-full snap-x snap-mandatory overflow-x-auto no-scrollbar md:overflow-visible">
+                        {destaques.map((item, index) => (
+                            <div class="w-full shrink-0 px-1 snap-center flex flex-col items-center">
+                                {/* Imagem clicável com ícone de lupa e atributos de dados */}
+                                <div 
+                                    class="highlight-item relative overflow-hidden rounded-md shadow-inner bg-stone-100 w-full max-w-sm aspect-[4/3] cursor-pointer group/img"
+                                    data-src={item.src}
+                                    data-legenda={item.legenda}
+                                    data-date={item.data}
+                                >
+                                    <img 
+                                        src={item.src} 
+                                        alt={item.legenda} 
+                                        class="w-full h-full object-cover object-center transition-transform duration-700 group-hover/img:scale-105"
+                                        loading="lazy"
+                                    />
+                                    {/* Overlay escuro com lupa */}
+                                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover/img:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10 text-white">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-3 text-center max-w-xs px-2">
+                                    <p class="text-[10px] md:text-xs text-red-700 font-bold tracking-wider uppercase mb-1">
+                                        {item.data}
+                                    </p>
+                                    <h3 class="text-base md:text-lg font-serif text-stone-800 leading-snug">
+                                        {item.legenda}
+                                    </h3>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Botão Próximo */}
+                    <button id="btn-next" class="absolute right-1 z-20 bg-white/90 hover:bg-red-700 text-stone-800 hover:text-white p-1.5 rounded-full shadow-lg transition-colors duration-300 focus:outline-none hidden md:flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+
+                </div>
+                
+                {/* Indicadores alinhados com o carrossel */}
+                <div class="flex justify-center gap-1.5 mt-3 max-w-xl mx-auto md:ml-auto md:mr-0 w-full" id="carousel-indicators">
+                    {destaques.map((_, i) => (
+                        <button class={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === 0 ? 'bg-red-700 w-4' : 'bg-stone-300 hover:bg-red-400'}`} data-index={i} aria-label={`Ir para o slide ${i + 1}`}></button>
+                    ))}
+                </div>
+
+            </main>
+        </div>
+
+    </div>
+
+    {/* =========================================
+        MODAL (A JANELA QUE ABRE A FOTO GRANDE)
+    ========================================== */}
+    <div id="imageModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300 p-4">
+        
+        {/* Botão de Fechar com hit-box maior e posicionado mais ao centro em telas pequenas */}
+        <button id="closeModal" class="absolute top-4 right-4 md:top-6 md:right-6 text-white/70 hover:text-white hover:rotate-90 transition-all duration-300 cursor-pointer p-2 z-[110]">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8 md:w-10 md:h-10">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <div id="modalContent" class="bg-white p-4 md:p-6 rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.5)] max-w-5xl max-h-[90vh] flex flex-col items-center transform scale-95 transition-transform duration-300">
+            <img 
+                id="modalImage" 
+                src="" 
+                alt="" 
+                class="max-h-[60vh] md:max-h-[65vh] w-auto object-contain border border-stone-200 shadow-inner"
+            />
+            <div class="mt-4 md:mt-5 text-center px-2 md:px-4 max-w-3xl overflow-y-auto max-h-[25vh]">
+                <p id="modalDate" class="text-xs md:text-sm text-red-700 font-bold tracking-widest uppercase mb-1"></p>
+                <h3 id="modalCaption" class="text-lg md:text-2xl font-serif text-stone-900 leading-snug"></h3>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    /* Esconder scrollbar padrão para o carrossel no mobile */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    /* =========================================
+       TAMANHO DO ÍCONE DE JORNAIS
+    ========================================== */
+    .newspaper-icon {
+        width: 70px;
+        height: 70px;
+    }
+    
+    @media (min-width: 768px) {
+        .newspaper-icon { width: 90px; height: 90px; }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Lógica do Carrossel ---
+        const track = document.getElementById('carousel-track');
+        const prevBtn = document.getElementById('btn-prev');
+        const nextBtn = document.getElementById('btn-next');
+        const indicators = document.querySelectorAll('#carousel-indicators button');
+        
+        if (track) {
+            let currentIndex = 0;
+            const totalSlides = indicators.length;
+
+            function updateCarousel(index: number) {
+                if (!track) return;
+                track.style.transform = `translateX(-${index * 100}%)`;
+                
+                indicators.forEach((ind, i) => {
+                    if (i === index) {
+                        ind.className = 'w-4 h-1.5 rounded-full bg-red-700 transition-all duration-300';
+                    } else {
+                        ind.className = 'w-1.5 h-1.5 rounded-full bg-stone-300 hover:bg-red-400 transition-all duration-300';
+                    }
+                });
+                
+                currentIndex = index;
+            }
+
+            prevBtn?.addEventListener('click', () => {
+                const newIndex = currentIndex === 0 ? totalSlides - 1 : currentIndex - 1;
+                updateCarousel(newIndex);
+            });
+
+            nextBtn?.addEventListener('click', () => {
+                const newIndex = currentIndex === totalSlides - 1 ? 0 : currentIndex + 1;
+                updateCarousel(newIndex);
+            });
+
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    updateCarousel(index);
+                });
+            });
+        }
+
+        // --- Lógica do Modal ---
+        const modal = document.getElementById('imageModal');
+        const modalContent = document.getElementById('modalContent');
+        const modalImg = document.getElementById('modalImage') as HTMLImageElement;
+        const modalCaption = document.getElementById('modalCaption');
+        const modalDate = document.getElementById('modalDate');
+        const closeBtn = document.getElementById('closeModal');
+        const highlightItems = document.querySelectorAll('.highlight-item');
+
+        highlightItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const src = item.getAttribute('data-src');
+                const legenda = item.getAttribute('data-legenda');
+                const date = item.getAttribute('data-date');
+
+                if (modalImg) modalImg.src = src || '';
+                if (modalCaption) modalCaption.textContent = legenda;
+                if (modalDate) modalDate.textContent = date;
+
+                modal?.classList.remove('hidden');
+                modal?.classList.add('flex');
+                
+                requestAnimationFrame(() => {
+                    modal?.classList.remove('opacity-0');
+                    modalContent?.classList.remove('scale-95');
+                    modalContent?.classList.add('scale-100');
+                });
+            });
+        });
+
+        const fecharModal = () => {
+            modal?.classList.add('opacity-0');
+            modalContent?.classList.remove('scale-100');
+            modalContent?.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal?.classList.add('hidden');
+                modal?.classList.remove('flex');
+            }, 300);
+        };
+
+        closeBtn?.addEventListener('click', fecharModal);
+
+        modal?.addEventListener('click', (e) => {
+            if (e.target === modal) fecharModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal?.classList.contains('hidden')) {
+                fecharModal();
+            }
+        });
+    });
+</script>

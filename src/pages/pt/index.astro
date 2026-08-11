@@ -1,0 +1,169 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Markdown from '../../components/Markdown.astro';
+
+const proposito = `
+O projeto Violão Catarinense tem como propósito valorizar e reconhecer os violonistas e compositores naturais, localizados ou naturalizados no estado de Santa Catarina.
+`;
+
+const idealizacao = `
+Edino Krieger foi um dos principais responsáveis e incentivador pelo projeto Violão Catarinense ter se tornado uma realidade.
+Lembro que quando combinamos de conversar em Blumenau (meados de 2011), expliquei a ele sobre o projeto e que gostaria de incluir todas 
+as suas composições para violão solo no meu primeiro disco.
+
+Também expliquei a ele que eu gostaria de incluir no disco outras peças de outros compositores, perguntando-lhe com um certo receio 
+se eu poderia fazer isso. Ele me respondeu de imediato: “Mas por que não?”
+
+Esta foi a resposta que demonstrou a mim o quanto Edino Krieger era humilde e incentivava outras pessoas a compor para o violão. Foi a partir deste momento que o disco Violão Catarinense se materializou.
+
+A resposta do maestro Krieger ainda reverbera no disco Violão Catarinense volume II e com a gravação de mais um terceiro disco. 
+Talvez seja isso que estava faltando para seguirmos adiante: “Mas por que não?”
+<br><br>
+<strong>— Andrei Uller</strong>
+`;
+
+const esclarecimentos = `
+**“Para participar do projeto o violonista ou compositor precisa obrigatoriamente ser natural de Santa Catarina?”**
+
+Não. A proposta é considerar as pessoas que contribuem para a cultura do estado catarinense através de suas composições para violão, sejam elas violão solo, duos, trios, ou outras disposições instrumentais, independente de sua origem. 
+A história nos evidencia que os povos autóctones são os únicos que poderiam talvez serem rotulados como “Catarinenses”, visto que o próprio termo não faz parte da linguagem destes povos. Santa Catarina é um território que foi povoado gradativamente 
+por pessoas de vários locais diferentes do globo, caracterizando Santa Catarina como uma espécie de mosaico cultural. 
+
+**“Para os novos participantes há algum documento oficial para cessão de direitos autorais?"**
+
+Após a finalização de uma nova gravação, um documento será enviado ao compositor ou violonista participante constando a autorização e 
+cessão dos direitos autorais da obra interpretada para a inclusão de um possível futuro disco a ser lançado.
+`;
+
+const apoio = `
+Em dezembro de 2024 o projeto foi contemplado pelo Edital do Programa de Apoio à Cultura (PROCULT) da Pró-Reitoria de Extensão da Universidade do Estado de Santa Catarina (UDESC). 
+Box Violão Catarinense é o título do projeto com vigência nos anos 2025 e 2026, recebendo recursos para o lançamento de um box contendo um disco inédito a ser lançado no ano de
+2026 e os dois primeiros volumes. Além dos recursos o projeto conta atualmente com o vínculo do bolsista de cultura Eduardo Nascimento, responsável pela programação deste site, e em 
+2025, contou com o vínculo da Beatriz de Souza Vieira, responsável por pesquisas iniciais e idealização do site.
+`;
+
+const bia = `
+Atualmente é bacharelanda em Violão da Universidade do Estado de Santa Catarina (UDESC), obtendo orientações com os professores André Ferreira de Moura e Luiz Mantovani. 
+Beatriz recentemente participou de masterclasses com os seguintes violonistas: Marisa Sardo e Giacomo Copiello. Em Joinville, iniciou seus estudos musicais no 
+conservatório Escola de Música Villa Lobos com os professores Marcos Figueiredo, Lausivan Corrêa, Claudenor Fávero e Nicolau Schmidt, 
+onde permaneceu por 10 anos até ingressar na universidade.
+`;
+
+const edu = `
+Atualmente é bacharelando em Violão na Universidade do Estado de Santa Catarina (UDESC), onde estuda sob orientação do professor Luiz Mantovani. No ano de 2025, 
+apresentou-se na Biblioteca Universitária da UDESC e na Igrejinha da Universidade Federal de Santa Catarina (UFSC), junto à Camerata de Violões da UDESC. 
+Participou de masterclasses ministradas pelos violonistas: Marisa Sardo, Gilson Antunes, Giacomo Copiello e Marco Lima. Iniciou seus estudos musicais de forma autodidata, 
+motivado por vídeos do violonista Fabio Lima. Posteriormente, ao decidir prestar o vestibular de Música da UDESC, buscou orientação com o violonista Leonardo Muller, 
+formado pela UDESC, a fim de se preparar adequadamente para o ingresso no curso.
+`;
+---
+
+<Layout title="Violão Catarinense">
+    
+    <div class="space-y-24 py-12">
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <div>
+                <h2 class="mb-6 text-3xl font-bold text-left text-red-700">Idealização</h2>
+                <div class="text-lg text-justify leading-relaxed text-stone-800">
+                    <Markdown content={idealizacao} />
+                </div>
+            </div>
+            
+            <div class="flex justify-center md:justify-end mt-4 md:mt-35">
+                <figure class="w-full max-w-md group transition-all duration-300 ease-out hover:scale-115 hover:-translate-y-2">
+                    
+                    <div class="p-2 bg-white border border-rose-500 rounded-xl shadow-lg transition-shadow duration-300 group-hover:shadow-2xl">
+                        <img 
+                            src="/images/edino.jpg" 
+                            alt="Edino Krieger e Andrei Uller" 
+                            class="rounded-lg w-full h-auto object-cover" 
+                        />
+                    </div>
+                    
+                    <figcaption class="mt-4 text-center text-sm font-medium text-stone-600 italic">
+                        Edino Krieger e Andrei Uller (2011)
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto px-4">
+            <h2 class="mb-6 text-3xl font-bold text-center text-red-700">Propósito</h2>
+            <div class="text-xl text-justify leading-relaxed text-stone-800">
+                <Markdown content={proposito} />
+            </div>
+        </section>
+
+        <section class="bg-white/60 rounded-2xl p-8 md:p-12 border border-stone-200 shadow-sm">
+            <h2 class="mb-8 text-3xl font-bold text-center text-red-700">Esclarecimentos</h2>
+            
+             <div class="text-lg text-justify leading-relaxed space-y-4 [&_strong]:text-red-700 text-stone-800">
+                <Markdown content={esclarecimentos} />
+            </div>
+        </section>
+        
+        <section class="max-w-4xl mx-auto px-4">
+            <div>
+                <h2 class="mb-6 text-3xl font-bold text-center text-red-700">Apoio</h2>
+                <div class="text-xl text-justify leading-relaxed text-stone-800">
+                    <Markdown content={apoio} />
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mt-16">
+            <div>
+                <h2 class="mb-6 text-3xl font-bold text-left text-red-700">Eduardo Nascimento</h2>
+                <div class="text-lg text-justify leading-relaxed text-stone-800">
+                    <Markdown content={edu} />
+                </div>
+            </div>
+            
+            <div class="flex justify-center md:justify-end mt-4 md:mt-22">
+                <figure class="w-full max-w-md group transition-all duration-300 ease-out hover:scale-115 hover:-translate-y-2">
+                    
+                    <div class="p-2 bg-white border border-rose-500 rounded-xl shadow-lg transition-shadow duration-300 group-hover:shadow-2xl">
+                        <img 
+                            src="/images/edu.jpg" 
+                            alt="Eduardo Nascimento" 
+                            class="rounded-lg w-full h-64 md:h-72 object-cover object-center" 
+                        />
+                    </div>
+                    <figcaption class="mt-4 text-center text-sm font-medium text-stone-600 italic">
+                        Eduardo Nascimento (2025)
+                    </figcaption>
+                    
+                </figure>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <div>
+                <h2 class="mb-6 text-3xl font-bold text-left text-red-700">Beatriz de Souza Vieira</h2>
+                <div class="text-lg text-justify leading-relaxed text-stone-800">
+                    <Markdown content={bia} />
+                </div>
+            </div>
+            
+            <div class="flex justify-center md:justify-end mt-4 md:mt-18">
+                <figure class="w-full max-w-md group transition-all duration-300 ease-out hover:scale-115 hover:-translate-y-2">
+                    
+                    <div class="p-2 bg-white border border-rose-500 rounded-xl shadow-lg transition-shadow duration-300 group-hover:shadow-2xl">
+                        <img 
+                            src="/images/bia.avif" 
+                            alt="Beatriz de Souza Vieira" 
+                            class="rounded-lg w-full h-64 md:h-72 object-cover object-center" 
+                        />
+                    </div>
+                    <figcaption class="mt-4 text-center text-sm font-medium text-stone-600 italic">
+                        Beatriz de Souza Vieira (2024)
+                    </figcaption>
+                    
+                </figure>
+            </div>
+        </section>
+
+    </div>
+
+</Layout>

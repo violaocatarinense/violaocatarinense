@@ -1,0 +1,220 @@
+---
+// 1. Lógica para detectar idioma pela URL
+const url = new URL(Astro.request.url);
+const pathSegments = url.pathname.split('/').filter(Boolean);
+const currentLang = pathSegments[0] === 'en' ? 'en' : 'pt';
+
+// 2. Dicionário de traduções para o Header
+const translations = {
+    pt: {
+        apresentacao: 'Apresentação',
+        compositores: 'Compositores & Violonistas',
+        catalogo: 'Catálogo',
+        composicoes: 'Composições',
+        arranjos: 'Arranjos',
+        discografia: 'Discografia',
+        referencias: 'Referências',
+        registros: 'Registros Históricos',
+        // Textos originais em português para as décadas
+        reg_des: "Destaques",
+        reg_ant: "Anterior a 1920",
+        reg_20: 'Décadas de 20 e 30',
+        reg_40: 'Décadas de 40 e 50',
+        reg_60: 'Década de 60',
+        reg_70: 'Década de 70',
+        reg_80: 'Décadas de 80 e 90',
+        reg_2000: 'Anos 2000 - Presente',
+        participe: 'Participe Conosco',
+        subtitle: 'Guitar music from Santa Catarina',
+        flagImg: "https://flagcdn.com/w40/gb.png", // Bandeira do Reino Unido (Inglês)
+        alt: 'Mudar para Inglês'
+    },
+    en: {
+        apresentacao: 'Presentation',
+        compositores: 'Composers & Guitarists',
+        catalogo: 'Catalog',
+        composicoes: 'Compositions',
+        arranjos: 'Arrangements',
+        discografia: 'Discography',
+        referencias: 'References',
+        registros: 'Historical Records',
+        // Textos em inglês para as décadas
+        reg_des: "Highlights",
+        reg_ant: "Before 1920",
+        reg_20: '20s - 30s',
+        reg_40: '40s - 50s',
+        reg_60: '60s',
+        reg_70: '70s',
+        reg_80: '80s - 90s',
+        reg_2000: '2000s - Present',
+        participe: 'Join Us',
+        subtitle: 'Guitar music from Santa Catarina',
+        flagImg: "https://flagcdn.com/w40/br.png", // Bandeira do Brasil (Português)
+        alt: 'Switch to Portuguese'
+    }
+};
+
+const t = translations[currentLang];
+
+// 3. Itens de navegação com prefixo de idioma /pt/ ou /en/
+const navItems = [
+    { linkText: t.apresentacao, href: `/${currentLang}/` },
+    { linkText: t.compositores, href: `/${currentLang}/compositores` },
+    { 
+        linkText: t.catalogo, 
+        href: `/${currentLang}/catalogo`,
+        subItems: [
+            { linkText: t.composicoes, href: `/${currentLang}/catalogo` },
+            { linkText: t.arranjos, href: `/${currentLang}/arranjo` },
+        ]
+    },
+    { linkText: t.discografia, href: `/${currentLang}/discografia` },
+    { linkText: t.referencias, href: `/${currentLang}/referencias` },
+    { 
+        linkText: t.registros, 
+        href: `/${currentLang}/registros`,
+        subItems: [
+            { linkText: t.reg_des, href: `/${currentLang}/registros/destaques` },
+            { linkText: t.reg_ant, href: `/${currentLang}/registros/anterior` },
+            { linkText: t.reg_20, href: `/${currentLang}/registros/20` },
+            { linkText: t.reg_40, href: `/${currentLang}/registros/40` },
+            { linkText: t.reg_60, href: `/${currentLang}/registros/60` },
+            { linkText: t.reg_70, href: `/${currentLang}/registros/70` },
+            { linkText: t.reg_80, href: `/${currentLang}/registros/80` },
+            { linkText: t.reg_2000, href: `/${currentLang}/registros/2000` },
+        ]
+    },
+    { linkText: t.participe, href: `/${currentLang}/participe` }
+];
+
+// 4. Lógica para o botão de troca de idioma (troca /pt por /en na URL atual)
+const otherLang = currentLang === 'pt' ? 'en' : 'pt';
+const cleanPath = url.pathname.replace(/^\/(pt|en)/, ''); 
+const toggleLangHref = `/${otherLang}${cleanPath === '' ? '/' : cleanPath}`;
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap" rel="stylesheet" />
+
+<header class="relative left-1/2 right-1/2 ml-[-50vw] mr-[-50vw] w-screen shadow-xl z-50">
+    
+    {/* CAIXA DE FUNDO ISOLADA */}
+    <div class="absolute inset-0 bg-red-700 overflow-hidden pointer-events-none z-0">
+        <div class="relative w-full h-56 md:h-72">
+            <img 
+                src="/images/logo.png" 
+                alt="Fundo Violão" 
+                class="absolute inset-0 w-full h-full object-contain mix-blend-multiply opacity-40 -rotate-90 scale-x-[-8] scale-y-[8] translate-x-55 translate-y-10" 
+            />
+        </div>
+    </div>
+
+    {/* TÍTULO E SUBTÍTULO */}
+    <div class="relative z-10 w-full h-56 md:h-78 flex items-center justify-center pointer-events-none">
+        <div class="flex flex-col items-center">
+            <h1 class="text-white text-4xl md:text-7xl font-['Cinzel'] font-bold tracking-wider text-center uppercase drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)] px-4 pointer-events-auto">
+                VIOLÃO CATARINENSE
+            </h1>
+            <span class="text-white/90 text-[10px] md:text-sm font-['Cinzel'] font-medium tracking-[0.4em] text-center uppercase drop-shadow-md pointer-events-auto mt-1 md:mt-2">
+                {t.subtitle}
+            </span>
+        </div>
+    </div>
+
+    {/* NAVEGAÇÃO */}
+    <nav class="relative z-20 bg-black/30 border-t border-white/10 py-3">
+        <ul class="flex flex-wrap items-center justify-center gap-x-2 md:gap-x-6 gap-y-2 max-w-full mx-auto px-4">
+            {navItems.map((item) => (
+                <li class={`relative group ${item.subItems ? 'has-dropdown' : ''}`}>
+                    <a 
+                        href={item.href} 
+                        class="text-white text-[10px] md:text-xs lg:text-sm font-bold no-underline uppercase tracking-widest hover:bg-white hover:text-red-700 px-3 py-2 rounded transition-all duration-300 border border-transparent hover:border-white/20 inline-flex items-center gap-1.5"
+                    >
+                        {item.linkText}
+                        
+                        {item.subItems && (
+                            <svg 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                viewBox="0 0 20 20" 
+                                fill="currentColor" 
+                                class="w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180" 
+                                aria-hidden="true"
+                            >
+                                <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                            </svg>
+                        )}
+                    </a>
+
+                    {item.subItems && (
+                        <div class="submenu-container absolute left-1/2 -translate-x-1/2 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <ul class="w-48 bg-red-900/90 border border-white/20 rounded-md shadow-2xl flex flex-col divide-y divide-white/20 overflow-hidden">
+                                {item.subItems.map((subItem) => (
+                                    <li>
+                                        <a 
+                                            href={subItem.href} 
+                                            class="block px-4 py-3 text-center text-[10px] md:text-[11px] text-white font-bold no-underline uppercase tracking-widest hover:bg-black/60 transition-all duration-300"
+                                        >
+                                            {subItem.linkText}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                </li>
+            ))}
+
+            {/* BOTÃO DE BANDEIRA (Switch de Idioma) */}
+            <li class="flex items-center ml-2 border-l border-white/20 pl-4">
+                <a href={toggleLangHref} title={t.alt} class="hover:scale-110 transition-transform duration-300 block">
+                    <img 
+                        src={t.flagImg} 
+                        alt={t.alt}
+                        class="w-6 h-auto rounded shadow-sm border border-white/10"
+                    />
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<style>
+    /* Suas classes de controle para mobile permanecem iguais */
+    .menu-aberto .submenu-container {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    .menu-aberto > a svg {
+        transform: rotate(180deg);
+    }
+</style>
+
+<script is:inline>
+    // Seu script de dropdown permanece o mesmo
+    document.addEventListener('DOMContentLoaded', () => {
+        const dropdowns = document.querySelectorAll('.has-dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('a');
+            
+            link.addEventListener('click', function(e) {
+                const isMobile = window.matchMedia('(max-width: 1024px)').matches || ('ontouchstart' in window);
+                
+                if (isMobile) {
+                    if (!dropdown.classList.contains('menu-aberto')) {
+                        e.preventDefault(); 
+                        dropdowns.forEach(d => d.classList.remove('menu-aberto'));
+                        dropdown.classList.add('menu-aberto');
+                    }
+                }
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.has-dropdown')) {
+                dropdowns.forEach(d => d.classList.remove('menu-aberto'));
+            }
+        });
+    });
+</script>

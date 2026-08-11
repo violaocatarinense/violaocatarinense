@@ -1,0 +1,240 @@
+<div id="modal-overlay" class="fixed inset-0 z-50 hidden bg-black/30 backdrop-blur-sm flex items-center justify-center p-2 md:p-6 opacity-0 transition-opacity duration-300">
+    
+    <div class="bg-white rounded-3xl w-full max-w-5xl max-h-[92vh] overflow-y-auto shadow-2xl relative transform scale-95 transition-transform duration-300 custom-scrollbar" id="modal-content">
+        
+        <button onclick="fecharModal()" class="absolute top-6 right-6 bg-white/10 hover:bg-white/20 text-white rounded-full p-2.5 transition-colors z-30 border border-white/20">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6"><path d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+
+        <div class="relative p-8 md:p-14 flex flex-col md:flex-row items-center gap-10 overflow-hidden">
+            
+            {/* ADD ID AQUI: div da Imagem de Fundo (o JS vai injetar a imagem correta nela) */}
+            <div id="modal-bg-image" class="absolute inset-0 z-0 bg-cover bg-center transition-all duration-500"></div>
+            
+            {/* Escurecimento */}
+            <div class="absolute inset-0 z-0 bg-stone-900/20"></div>
+            
+            {/* O Conteúdo em si */}
+            <div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-8 border-stone-200/50 shadow-2xl flex-shrink-0 z-10">
+                <img id="modal-header-img" src="" alt="" class="w-full h-full object-cover" />
+            </div>
+            
+            <div class="text-center md:text-left z-10">
+                <h2 id="modal-title" class="text-4xl md:text-6xl font-black text-white drop-shadow-lg leading-none tracking-tighter"></h2>
+                <span id="modal-atuacao" class="block text-xl text-stone-200 font-serif italic mt-3 drop-shadow-md"></span>
+                
+                <div class="flex flex-wrap justify-center md:justify-start gap-3 mt-6">
+                 <a id="btn-catalogo-modal" href="/pt/catalogo" class="hidden no-underline bg-white/90 hover:bg-white text-stone-900 text-sm font-bold uppercase tracking-wider py-2.5 px-6 rounded-full shadow-lg transition-transform hover:-translate-y-0.5 border border-transparent">
+                 Catálogo do Site
+                 </a>
+                 <a id="btn-discografia-modal" href="/discografia" class="hidden no-underline bg-white/90 hover:bg-white text-stone-900 text-sm font-bold uppercase tracking-wider py-2.5 px-6 rounded-full shadow-lg transition-transform hover:-translate-y-0.5 border border-transparent">
+                 Discografia
+                </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-8 md:p-14">
+            {/* Título da biografia sem sombra, com fonte menor e na cor cinza escuro */}
+            <h2 id="modal-bio-title" class="text-center text-2xl md:text-3xl font-black text-vine-600 uppercase leading-none tracking-tighter mb-8">Biografia</h2>
+            
+            <div id="modal-bio" class="text-base text-gray-700 leading-relaxed space-y-6 text-justify">
+            </div>
+        </div>
+
+        <div id="gallery-section" class="bg-stone-100 p-8 md:p-14 border-t border-gray-100">
+            <h3 class="text-center text-gray-400 uppercase tracking-[0.3em] text-xs font-black mb-10">Galeria de Imagens</h3>
+            
+            <div class="relative max-w-4xl mx-auto group/gallery">
+                <div class="aspect-video bg-stone-100 rounded-3xl overflow-hidden shadow-inner flex items-center justify-center relative">
+                    <img id="modal-gallery-img" src="" alt="" class="max-w-full max-h-full object-contain transition-opacity duration-300 opacity-100 border-8 border-white rounded-3xl shadow-2xl" />
+                </div>
+
+                <div class="absolute inset-0 flex items-center justify-between px-6 pointer-events-none">
+                    <button onclick="mudarFoto(-1)" class="pointer-events-auto p-4 rounded-full bg-white/95 hover:bg-red-700 hover:text-white text-red-700 shadow-2xl transition-all opacity-0 group-hover/gallery:opacity-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-8 h-8"><path d="M15 19l-7-7 7-7" /></svg>
+                    </button>
+                    <button onclick="mudarFoto(1)" class="pointer-events-auto p-4 rounded-full bg-white/95 hover:bg-red-700 hover:text-white text-red-700 shadow-2xl transition-all opacity-0 group-hover/gallery:opacity-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-8 h-8"><path d="M9 5l7 7-7 7" /></svg>
+                    </button>
+                </div>
+
+                <div id="gallery-counter" class="text-center mt-8 text-sm font-black text-gray-400 tracking-widest">
+                    1 / 1
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .custom-scrollbar::-webkit-scrollbar { width: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #b91c1c; border-radius: 10px; }
+    body.modal-open { overflow: hidden; }
+</style>
+
+<script is:inline>
+    let galeriaAtual = [];
+    let indiceAtual = 0;
+
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalContent = document.getElementById('modal-content');
+    const modalTitle = document.getElementById('modal-title');
+    const modalAtuacao = document.getElementById('modal-atuacao');
+    const headerImg = document.getElementById('modal-header-img');
+    const galleryImg = document.getElementById('modal-gallery-img');
+    const modalBio = document.getElementById('modal-bio');
+    const gallerySection = document.getElementById('gallery-section');
+    const galleryCounter = document.getElementById('gallery-counter');
+    const modalBgImage = document.getElementById('modal-bg-image'); 
+
+    window.abrirModal = (id) => {
+        const dataDiv = document.getElementById(`data-${id}`);
+        
+        if (!dataDiv) {
+            console.warn("A biografia deste compositor ainda não foi cadastrada no banco de dados.");
+            return;
+        }
+
+        galeriaAtual = JSON.parse(dataDiv.getAttribute('data-galeria') || "[]");
+        indiceAtual = 0;
+
+        const nomeArtista = dataDiv.getAttribute('data-nome');
+        const atuacaoArtista = dataDiv.getAttribute('data-atuacao');
+
+        modalTitle.innerText = nomeArtista;
+        modalAtuacao.innerText = atuacaoArtista;
+        
+        // --- NOVA LÓGICA DE FUNDO DINÂMICO (COM ESCALA) ---
+        let urlImagemFundo = '';
+        let posicaoFundo = 'center'; 
+        let escalaFundo = '100%'; 
+
+        const atuacaoLimpa = atuacaoArtista.toLowerCase().trim();
+        const nomeLimpo = nomeArtista.toLowerCase().trim(); // Variável nova para ler o nome
+
+        // 1. Verifica primeiro se é um dos artistas com fundo personalizado
+        if (nomeLimpo.includes('acácio piedade') ) {
+            urlImagemFundo = '/images/fundo-acacio.avif'; // Coloque o caminho real da foto do Acácio aqui
+        } else if (nomeLimpo.includes('edino krieger')) {
+            urlImagemFundo = '/images/fundo-edino.avif'; // Coloque o caminho real da foto do Edino aqui
+        } else if (nomeLimpo.includes('ricardo boppré')) {
+            urlImagemFundo = '/images/fundo-ricardo.avif'; // Certifique-se de que o nome do arquivo está correto
+        }
+        // 2. Se não for nenhum dos dois, segue a regra normal das profissões
+        else if (atuacaoLimpa === 'compositor e violonista'|| atuacaoLimpa === 'composer and guitarist') {
+            urlImagemFundo = '/images/fundo-violao2.avif';
+        } else if (atuacaoLimpa === 'compositor'|| atuacaoLimpa === 'composer') {
+            urlImagemFundo = '/images/teste.jpg';
+        } else if (atuacaoLimpa === 'violonista'|| atuacaoLimpa === 'guitarist') {
+            urlImagemFundo = '/images/fundo-violao2.avif';
+        } else {
+            urlImagemFundo = '/images/fundo-padrao.jpg'; 
+        }
+
+        modalBgImage.style.backgroundImage = `url('${urlImagemFundo}')`;
+        modalBgImage.style.backgroundPosition = posicaoFundo;
+        modalBgImage.style.backgroundSize = escalaFundo; 
+        modalBgImage.style.backgroundRepeat = 'no-repeat'; 
+        modalBgImage.style.filter = 'blur(0px)';
+        // --------------------------------------
+        
+        // --- LÓGICA DE EXIBIÇÃO DOS BOTÕES E TRADUÇÃO ---
+        const temCatalogo = dataDiv.getAttribute('data-tem-catalogo') === 'true';
+        const temDiscografia = dataDiv.getAttribute('data-tem-discografia') === 'true';
+
+        const isEnglish = window.location.pathname.includes('/en') || document.documentElement.lang === 'en';
+
+        // Tradução do título da Biografia
+        const bioTitle = document.getElementById('modal-bio-title');
+        if (bioTitle) {
+            bioTitle.innerText = isEnglish ? 'Biography' : 'Biografia';
+        }
+
+        const btnCatalogo = document.getElementById('btn-catalogo-modal');
+        if (btnCatalogo) {
+            btnCatalogo.href = (isEnglish ? '/en/catalogo?busca=' : '/pt/catalogo?busca=') + encodeURIComponent(nomeArtista);
+            btnCatalogo.innerText = isEnglish ? 'Site Catalog' : 'Catálogo do Site';
+            if (temCatalogo) btnCatalogo.classList.remove('hidden');
+            else btnCatalogo.classList.add('hidden');
+        }
+
+        const btnDiscografia = document.getElementById('btn-discografia-modal');
+        if (btnDiscografia) {
+            btnDiscografia.href = (isEnglish ? '/en/discografia?busca=' : '/discografia?busca=') + encodeURIComponent(nomeArtista);
+            btnDiscografia.innerText = isEnglish ? 'Discography' : 'Discografia';
+            if (temDiscografia) btnDiscografia.classList.remove('hidden');
+            else btnDiscografia.classList.add('hidden');
+        }
+
+        const tituloGaleria = document.querySelector('#gallery-section h3');
+        if (tituloGaleria) {
+            tituloGaleria.innerText = isEnglish ? 'Image Gallery' : 'Galeria de Imagens';
+        }
+
+        headerImg.src = dataDiv.getAttribute('data-foto');
+        modalBio.innerHTML = dataDiv.querySelector('.data-bio').innerHTML;
+        
+        document.getElementById('gallery-section').style.display = galeriaAtual.length > 0 ? 'block' : 'none';
+        atualizarGaleria();
+
+        modalOverlay.classList.remove('hidden');
+        document.body.classList.add('modal-open');
+
+        setTimeout(() => {
+            modalOverlay.classList.remove('opacity-0');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }, 10);
+    }
+
+    window.mudarFoto = (direcao) => {
+        if (galeriaAtual.length === 0) return;
+        const galleryImg = document.getElementById('modal-gallery-img');
+        galleryImg.style.opacity = '0';
+        setTimeout(() => {
+            indiceAtual = (indiceAtual + direcao + galeriaAtual.length) % galeriaAtual.length;
+            atualizarGaleria();
+            galleryImg.onload = () => galleryImg.style.opacity = '1';
+        }, 200);
+    }
+
+    window.atualizarGaleria = function() {
+        if (galeriaAtual.length > 0) {
+            document.getElementById('modal-gallery-img').src = galeriaAtual[indiceAtual];
+            document.getElementById('gallery-counter').innerText = `${indiceAtual + 1} / ${galeriaAtual.length}`;
+
+            const setasContainer = document.querySelector('.group\\/gallery > div.absolute.inset-0.flex');
+            if (setasContainer) {
+                if (galeriaAtual.length > 1) {
+                    setasContainer.style.display = 'flex'; 
+                } else {
+                    setasContainer.style.display = 'none'; 
+                }
+            }
+        }
+    }
+
+    window.fecharModal = function() {
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalContent = document.getElementById('modal-content');
+        modalOverlay.classList.add('opacity-0');
+        modalContent.classList.remove('scale-100');
+        modalContent.classList.add('scale-95');
+        setTimeout(() => {
+            modalOverlay.classList.add('hidden');
+            document.body.classList.remove('modal-open');
+        }, 300);
+    }
+
+    document.addEventListener('click', (e) => { 
+        if (e.target.id === 'modal-overlay') fecharModal(); 
+    });
+    document.addEventListener('keydown', (e) => {
+        const modalOverlay = document.getElementById('modal-overlay');
+        if (e.key === 'Escape' && !modalOverlay.classList.contains('hidden')) fecharModal();
+        if (e.key === 'ArrowRight' && galeriaAtual.length > 1) mudarFoto(1);
+        if (e.key === 'ArrowLeft' && galeriaAtual.length > 1) mudarFoto(-1);
+    });
+</script>

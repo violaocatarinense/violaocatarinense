@@ -1,0 +1,271 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ModalBiografias from '../../components/ModalBiografias.astro'; // IMPORTAÇÃO DO NOVO COMPONENTE
+
+// 1. BANCO DE DADOS DAS BIOGRAFIAS
+import { musicos } from '../../data/musicospt.js';
+
+function obter_atuacao(eh_compositor, eh_violonista) {
+    if (eh_compositor && eh_violonista) return "Compositor e Violonista";
+    if (eh_compositor) return "Compositor";
+    if (eh_violonista) return "Violonista";
+    return "";
+}
+
+// 2. BANCO DE DADOS DO CATÁLOGO
+import { catalogo } from '../../data/arranjo.js';
+
+// 3. BANCO DE DADOS DA DISCOGRAFIA (Para verificar os botões)
+import { discografia } from '../../data/discografia.js';
+
+catalogo.sort((a, b) => a.compositor.localeCompare(b.compositor));
+
+// Funções para verificar se o músico possui registros
+function verificar_catalogo(id_musico) {
+    return catalogo.some(item => item.id === id_musico); 
+}
+
+function verificar_discografia(nome_musico) {
+    return discografia.some(item => item.nome.toLowerCase().trim() === nome_musico.toLowerCase().trim());
+}
+---
+
+<Layout title="Violão Catarinense">
+    
+    {/* Corrigido o erro de sintaxe 'md: px-0' e adicionado padding lateral no mobile */}
+    <div class="min-h-screen px-4 md:px-0 py-16 md:py-10 text-stone-900">
+        
+        <div class="max-w-6xl mx-auto">
+            
+            {/* Margens e desvios negativos aplicados apenas no desktop (md:) */}
+            <header class="flex flex-col items-center text-center pt-0 pb-0 mb-10 translate-x-0 md:-translate-x-12">
+                <div class="flex flex-col items-center text-center w-full">
+                    
+                    {/* Alterado para stackar o ícone e o texto no mobile (flex-col md:flex-row) */}
+                    <h1 class="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-8 text-3xl md:text-5xl font-bold text-red-700 font-['Cinzel'] uppercase tracking-tight mb-4">                    
+                        
+                        {/* Tamanho e posição do ícone reajustados para mobile */}
+                        <svg viewBox="0 0 100 100" class="text-red-700 w-20 h-20 md:w-24 md:h-24 shrink-0 translate-y-0 md:translate-y-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <style is:inline>
+                                @keyframes float-music-notes {
+                                    0% { opacity: 0; transform: translateY(8px); }
+                                    20% { opacity: 1; transform: translateY(0px); }
+                                    80% { opacity: 1; transform: translateY(-10px); }
+                                    100% { opacity: 0; transform: translateY(-18px); }
+                                }
+                                .pauta-linha { stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
+                                .nota-animada { animation: float-music-notes 3.5s ease-in-out infinite; fill: currentColor; }
+                                .nota-haste { stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+                                .nota-bandeirola { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+                                .delay-1 { animation-delay: 0s; }
+                                .delay-2 { animation-delay: 1.2s; }
+                                .delay-3 { animation-delay: 2.4s; }
+                            </style>
+                            
+                            <line class="pauta-linha" x1="5" y1="30" x2="95" y2="30"/>
+                            <line class="pauta-linha" x1="5" y1="40" x2="95" y2="40"/>
+                            <line class="pauta-linha" x1="5" y1="50" x2="95" y2="50"/>
+                            <line class="pauta-linha" x1="5" y1="60" x2="95" y2="60"/>
+                            <line class="pauta-linha" x1="5" y1="70" x2="95" y2="70"/>
+                            
+                            <g transform="translate(25, 60)">
+                                <g class="nota-animada delay-1">
+                                    <ellipse cx="0" cy="0" rx="4.5" ry="3.5" transform="rotate(-20)"/>
+                                    <line class="nota-haste" x1="4" y1="0" x2="4" y2="-22"/>
+                                    <path class="nota-bandeirola" d="M4 -22 C 12 -18, 14 -8, 10 -2"/>
+                                </g>
+                            </g>
+                            
+                            <g transform="translate(50, 70)">
+                                <g class="nota-animada delay-2">
+                                    <ellipse cx="0" cy="0" rx="4.5" ry="3.5" transform="rotate(-20)"/>
+                                    <line class="nota-haste" x1="4" y1="0" x2="4" y2="-22"/>
+                                    <path class="nota-bandeirola" d="M4 -22 C 12 -18, 14 -8, 10 -2"/>
+                                </g>
+                            </g>
+                            
+                            <g transform="translate(75, 50)">
+                                <g class="nota-animada delay-3">
+                                    <ellipse cx="0" cy="0" rx="4.5" ry="3.5" transform="rotate(-20)"/>
+                                    <line class="nota-haste" x1="4" y1="0" x2="4" y2="-22"/>
+                                    <path class="nota-bandeirola" d="M4 -22 C 12 -18, 14 -8, 10 -2"/>
+                                </g>
+                            </g>
+                        </svg>
+
+                        <span class="relative whitespace-nowrap after:absolute after:-bottom-0 md:after:left-[0%] after:left-0 after:w-full md:after:w-[110%] after:h-[2px] after:bg-red-700">
+                            Catálogo de Obras
+                        </span>
+                    </h1>
+                    
+                    {/* Recuo do texto aplicado apenas no desktop (md:-mt-8, md:ml-55) */}
+                    <div class="mt-4 md:-mt-8 ml-0 md:ml-55 mb-0 px-2 md:px-0"> 
+                        <p class="text-lg md:text-xl text-stone-600 font-serif italic text-center md:text-left">
+                            Registro de arranjos que contribuem para o repertório <br class="hidden md:block" /> violonístico catarinense e brasileiro
+                        </p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="max-w-xl mx-auto mb-10 px-2 w-full">
+                <div class="relative group">
+                    <input 
+                        type="text" 
+                        id="buscaCatalogo"
+                        placeholder="Buscar por compositor, obra ou formação..." 
+                        class="w-full px-6 py-3 rounded-full border-2 border-stone-200 focus:border-red-900 focus:outline-none transition-all duration-300 shadow-sm text-lg font-serif italic text-stone-700 bg-white"
+                    />
+                </div>
+            </div>
+
+            {/* A tabela rolará lateralmente em telas menores automaticamente sem quebrar o layout da página */}
+            <div class="w-full overflow-x-auto pb-8 rounded-lg shadow-sm md:shadow-none bg-white md:bg-transparent px-2 md:px-0">
+                <table id="tabelaCatalogo" class="w-full text-left border-collapse min-w-[800px]">
+                    <thead>
+                        <tr class="border-b-2 border-red-900/40 text-red-950 font-['Cinzel'] text-lg tracking-wider drop-shadow-sm">
+                            <th class="py-5 px-6 font-bold w-1/4">Compositor</th>
+                            <th class="py-5 px-6 font-bold w-1/3">Obra</th>
+                            <th class="py-5 px-6 font-bold w-24">Ano</th>
+                            <th class="py-5 px-6 font-bold w-1/4">Formação</th>
+                            <th class="py-5 px-6 font-bold text-center w-32">Gravação</th>
+                        </tr>
+                    </thead>
+                    
+                    {catalogo.map((autor) => (
+                        <tbody class="hover:bg-stone-50 transition-colors duration-300 border-b-2 border-stone-800/10 group font-serif text-stone-800 text-lg">
+                            {autor.obras.map((obra, index) => (
+                                <tr class="border-b border-stone-800/5 last:border-0">
+                                    
+                                    {index === 0 && (
+                                        <td class="py-4 px-6 font-bold align-top" rowspan={autor.obras.length}>
+                                            <button 
+                                                onclick={`abrirModal('${autor.id}')`}
+                                                class="text-red-950 hover:text-red-700 transition-colors drop-shadow-sm text-left decoration-dotted underline underline-offset-4 decoration-red-900/30 hover:decoration-red-700 cursor-pointer"
+                                                title={`Ler biografia de ${autor.compositor}`}
+                                            >
+                                                {autor.compositor}
+                                            </button>
+                                        </td>
+                                    )}
+                                    
+                                    <td class="py-4 px-6 italic font-medium drop-shadow-sm">{obra.titulo}</td>
+                                    <td class="py-4 px-6 text-stone-600 drop-shadow-sm">{obra.ano || "—"}</td>
+                                    <td class="py-4 px-6 text-stone-600 drop-shadow-sm">{obra.formacao}</td>
+                                    <td class="py-4 px-6 text-center">
+                                        {obra.linkYoutube ? (
+                                            <a href={obra.linkYoutube} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 px-4 py-1.5 border border-red-900/40 text-red-900 text-sm hover:bg-red-900 hover:text-white rounded transition-all duration-300 shadow-sm hover:shadow-md">
+                                                <span class="font-sans font-semibold tracking-wide uppercase text-xs">Ouvir</span>
+                                            </a>
+                                        ) : (
+                                            <span class="text-stone-400/60 italic text-sm font-sans drop-shadow-sm">—</span>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    ))}
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {/* DIVS ESCONDIDAS (AQUI FICAM OS DADOS DO MODAL) */}
+    <div id="dados-biografias" class="hidden">
+        {musicos.map((musico) => {
+            const textoAtuacao = obter_atuacao(musico.eh_compositor, musico.eh_violonista);
+            return (
+                <div id={`data-${musico.id}`} 
+                     data-nome={musico.nome} 
+                     data-foto={musico.foto} 
+                     data-galeria={JSON.stringify(musico.galeria || [])} 
+                     data-atuacao={textoAtuacao}
+                     data-tem-catalogo={verificar_catalogo(musico.id) ? "true" : "false"}
+                     data-tem-discografia={verificar_discografia(musico.nome) ? "true" : "false"}
+                >
+                    <div class="data-bio" set:html={musico.bio}></div>
+                </div>
+            );
+        })}
+    </div>
+
+    {/* O MODAL FOI SUBSTITUÍDO POR ESTA ÚNICA LINHA AQUI! */}
+    <ModalBiografias />
+
+</Layout>
+
+<script is:inline define:vars={{ catalogo }}>
+    document.addEventListener('DOMContentLoaded', () => {
+        const inputBusca = document.getElementById('buscaCatalogo');
+        const tabela = document.getElementById('tabelaCatalogo');
+        
+        const tbodiesOriginais = Array.from(tabela.querySelectorAll('tbody'));
+        const htmlOriginal = tbodiesOriginais.map(tb => tb.outerHTML).join('');
+
+        inputBusca.addEventListener('input', (e) => {
+            const termo = e.target.value.toLowerCase().trim();
+            tabela.querySelectorAll('tbody').forEach(tb => tb.remove());
+
+            if (termo === '') {
+                tabela.insertAdjacentHTML('beforeend', htmlOriginal);
+                return;
+            }
+
+            let htmlFiltrado = '';
+            let encontrouAlgo = false;
+
+            catalogo.forEach(autor => {
+                const obrasFiltradas = autor.obras.filter(obra => 
+                    obra.titulo.toLowerCase().includes(termo) ||
+                    obra.formacao.toLowerCase().includes(termo) ||
+                    autor.compositor.toLowerCase().includes(termo)
+                );
+
+                if (obrasFiltradas.length > 0) {
+                    encontrouAlgo = true;
+                    htmlFiltrado += `<tbody class="hover:bg-stone-50 transition-colors duration-300 border-b-2 border-stone-800/10 font-serif text-stone-800 text-lg">`;
+                    
+                    obrasFiltradas.forEach((obra, index) => {
+                        htmlFiltrado += `<tr class="border-b border-stone-800/5 last:border-0">`;
+                        
+                        if (index === 0) {
+                            htmlFiltrado += `
+                            <td class="py-4 px-6 font-bold align-top" rowspan="${obrasFiltradas.length}">
+                                <button onclick="abrirModal('${autor.id}')" class="text-red-950 hover:text-red-700 transition-colors drop-shadow-sm text-left decoration-dotted underline underline-offset-4 decoration-red-900/30 hover:decoration-red-700 cursor-pointer">
+                                    ${autor.compositor}
+                                </button>
+                            </td>`;
+                        }
+                        
+                        htmlFiltrado += `<td class="py-4 px-6 italic font-medium drop-shadow-sm">${obra.titulo}</td>`;
+                        htmlFiltrado += `<td class="py-4 px-6 text-stone-600 drop-shadow-sm">${obra.ano || "—"}</td>`;
+                        htmlFiltrado += `<td class="py-4 px-6 text-stone-600 drop-shadow-sm">${obra.formacao}</td>`;
+                        htmlFiltrado += `<td class="py-4 px-6 text-center">`;
+                        if (obra.linkYoutube) {
+                            htmlFiltrado += `<a href="${obra.linkYoutube}" target="_blank" class="inline-flex items-center justify-center px-4 py-1.5 border border-red-900/40 text-red-900 text-sm hover:bg-red-900 hover:text-white rounded transition-all shadow-sm">Ouvir</a>`;
+                        } else {
+                            htmlFiltrado += `<span class="text-stone-400/60 italic text-sm">—</span>`;
+                        }
+                        htmlFiltrado += `</td></tr>`;
+                    });
+                    
+                    htmlFiltrado += `</tbody>`;
+                }
+            });
+
+            if (!encontrouAlgo) {
+                htmlFiltrado = `<tbody><tr><td colspan="5" class="py-12 text-center text-stone-500 font-serif italic text-xl">Nenhum resultado encontrado.</td></tr></tbody>`;
+            }
+
+            tabela.insertAdjacentHTML('beforeend', htmlFiltrado);
+        });
+
+        // --- LÓGICA NOVA: LÊ A URL E FILTRA AUTOMATICAMENTE ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const buscaDaUrl = urlParams.get('busca');
+        
+        if (buscaDaUrl) {
+            inputBusca.value = buscaDaUrl; // Preenche o campo visualmente
+            inputBusca.dispatchEvent(new Event('input')); // Dispara o evento de filtro da tabela
+        }
+    });
+</script>

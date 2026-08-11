@@ -1,0 +1,31 @@
+---
+// src/pages/index.astro
+---
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <title>Violão Catarinense</title>
+  
+  <script is:inline>
+    // 1. Detecta o idioma do navegador
+    const userLang = navigator.language || navigator.userLanguage;
+
+    // 2. Lógica: Se começar com 'pt', vai para /pt/. 
+    // Para TODO o resto (Inglês ou qualquer outro idioma), vai para /en/.
+    const targetPath = userLang.startsWith('pt') ? '/pt/' : '/en/';
+
+    // 3. Redireciona imediatamente
+    window.location.replace(targetPath);
+  </script>
+
+  <link rel="canonical" href="https://violaocatarinense.com.br/pt/" />
+  <noscript>
+    <meta http-equiv="refresh" content="0;url=/en/" />
+  </noscript>
+</head>
+<body style="background: #000; color: #fff; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif;">
+  <p>Loading... / Carregando...</p>
+</body>
+</html>

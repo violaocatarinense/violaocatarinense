@@ -1,0 +1,192 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ModalBiografias from '../../components/ModalBiografias.astro'; // IMPORTAÇÃO DO NOVO COMPONENTE
+
+// --- BANCO DE DADOS DOS MÚSICOS ---
+import { musicos } from '../../data/musicosen.js';
+
+// --- BANCO DE DADOS PARA VERIFICAÇÃO DOS BOTÕES ---
+import { catalogo } from '../../data/catalogo.js';
+import { discografia } from '../../data/discografia.js';
+
+musicos.sort((a, b) => a.nome.localeCompare(b.nome));
+
+// Função para gerar o texto de atuação
+function obter_atuacao(eh_compositor, eh_violonista) {
+    if (eh_compositor && eh_violonista) return "Composer and Guitarist";
+    if (eh_compositor) return "Composer";
+    if (eh_violonista) return "Guitarist";
+    return "";
+}
+
+// Funções para verificar se o músico possui registros (usando o ID)
+function verificar_catalogo(id_musico) {
+    return catalogo.some(item => item.id === id_musico); 
+}
+
+// Verifica Discografia pelo NOME (nova lógica!)
+function verificar_discografia(nome_musico) {
+    return discografia.some(item => item.nome.toLowerCase().trim() === nome_musico.toLowerCase().trim());
+}
+---
+
+<Layout title="Violão Catarinense">
+    
+ <header class="flex flex-col items-center text-center pt-0 pb-6 mb-10 -mt-6 md:-mt-6">
+    <div class="flex flex-col items-center text-center w-full">
+        <h1 class="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-6 text-3xl md:text-4xl lg:text-5xl font-bold text-red-700 font-['Cinzel'] uppercase tracking-tight">
+            
+            <div class="w-24 h-24 pt-0 md:pt-15 md:w-56 md:h-56 shrink-0 flex items-center justify-center relative overflow-hidden">
+                <svg viewBox="0 0 100 100" class="w-full h-full text-red-700 drop-shadow-md" xmlns="http://www.w3.org/2000/svg">
+                    <g stroke="#e5e7eb" stroke-width="1.5" fill="none" stroke-linecap="round">
+                        <path d="M 10,40 Q 50,25 90,40" class="animate-pulse" />
+                        <path d="M 10,50 Q 50,35 90,50" class="animate-pulse" style="animation-delay: 0.5s;" />
+                        <path d="M 10,60 Q 50,45 90,60" class="animate-pulse" style="animation-delay: 1s;" />
+                    </g>
+
+                    <g class="animate-note-1" fill="currentColor">
+                        <path d="M45,65 C45,68.3 42.3,71 39,71 C35.7,71 33,68.3 33,65 C33,61.7 35.7,59 39,59 C41,59 42.7,60 43.8,61.4 L44.8,30 L65,25 L65,55 C65,58.3 62.3,61 59,61 C55.7,61 53,58.3 53,55 C53,51.7 55.7,49 59,49 C61,49 62.7,50 63.8,51.4 L63.8,31.5 L46.2,35.8 L45,65 Z"/>
+                    </g>
+                    
+                    <g class="animate-note-2" fill="currentColor">
+                        <path d="M25,80 C25,82.2 23.2,84 21,84 C18.8,84 17,82.2 17,80 C17,77.8 18.8,76 21,76 C22.3,76 23.5,76.7 24.2,77.6 L25,50 L35,47 L35,51.5 L26.5,54 L25,80 Z"/>
+                    </g>
+                    
+                    <g class="animate-note-3" fill="currentColor">
+                        <path d="M85,45 C85,47.2 83.2,49 81,49 C78.8,49 77,47.2 77,45 C77,42.8 78.8,41 81,41 C82.3,41 83.5,41.7 84.2,42.6 L85,15 L95,12 L95,16.5 L86.5,19 L85,45 Z"/>
+                    </g>
+                </svg>
+            </div>
+
+            <span class="relative after:absolute after:-bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-red-700">
+                Composers & Guitarists
+            </span>
+        </h1>
+        
+        <div class="mt-4 md:-mt-20 ml-0 md:ml-32 lg:ml-35 mb-10 px-4 md:px-0"> 
+    <p style="margin-left: 25px;" class="text-lg md:text-xl text-stone-600 font-serif italic text-center md:text-left">
+        Musicians contributing to the Santa Catarina and <br class="hidden md:block" /> Brazilian guitar repertoire
+    </p>
+</div>
+        
+        <div class="max-w-md w-full mx-auto px-4 mt-4">
+            <div class="relative group">
+                <input 
+                        type="text" 
+                        id="buscaCatalogo"
+                        placeholder="Search for musician..." 
+                        class="w-full px-6 py-3 rounded-full border-2 border-stone-200 focus:border-red-900 focus:outline-none transition-all duration-300 shadow-sm text-lg font-serif italic text-stone-700 bg-white"
+                    />
+                <div class="absolute right-5 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-red-700 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+            </div>
+            <p id="noResults" class="hidden text-center mt-4 text-stone-500 italic">No musician found.</p>
+        </div>
+    </div>
+</header>
+
+<style>
+    /* Animações das notas musicais subindo e desaparecendo suavemente */
+    .animate-note-1 {
+        animation: float-music 4s ease-in-out infinite;
+    }
+    .animate-note-2 {
+        animation: float-music 5s ease-in-out infinite 1.5s;
+        opacity: 0; /* Começa invisível até a animação rodar */
+    }
+    .animate-note-3 {
+        animation: float-music 6s ease-in-out infinite 0.7s;
+        opacity: 0;
+    }
+
+    @keyframes float-music {
+        0% { transform: translateY(15px) rotate(-10deg) scale(0.8); opacity: 0; }
+        20% { opacity: 0.8; }
+        80% { opacity: 0.8; }
+        100% { transform: translateY(-25px) rotate(15deg) scale(1.1); opacity: 0; }
+    }
+</style>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-4" id="musicosContainer">
+    {musicos.map((musico) => {
+        const textoAtuacao = obter_atuacao(musico.eh_compositor, musico.eh_violonista);
+        return (
+        <div 
+            class="musico-card group cursor-pointer transform transition-all hover:-translate-y-2" 
+            onclick={`abrirModal('${musico.id}')`}
+            data-nome={musico.nome.toLowerCase()}
+        >
+            <div class="overflow-hidden rounded-full shadow-lg aspect-square mb-4 relative bg-gray-100 border-4 border-white max-w-[150px] md:max-w-[180px] mx-auto">
+                <img src={musico.foto} alt={musico.nome} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+            </div>
+            
+            <h3 class="text-xl font-bold text-center text-gray-800 group-hover:text-rose-700 transition-colors">
+                {musico.nome}
+            </h3>
+
+            {textoAtuacao && (
+                <span class="block text-center text-gray-500 text-sm font-serif italic mt-1 group-hover:text-rose-500 transition-colors">
+                    {textoAtuacao}
+                </span>
+            )}
+            
+            <div id={`data-${musico.id}`} 
+                 class="hidden" 
+                 data-nome={musico.nome} 
+                 data-foto={musico.foto} 
+                 data-galeria={JSON.stringify(musico.galeria)} 
+                 data-atuacao={textoAtuacao}
+                 data-tem-catalogo={verificar_catalogo(musico.id) ? "true" : "false"}
+                 data-tem-discografia={verificar_discografia(musico.nome) ? "true" : "false"}
+            >
+                <div class="data-bio" set:html={musico.bio}></div>
+            </div>
+        </div>
+        );
+    })}
+</div>
+
+<p id="noResultsCards" class="hidden text-center mt-12 text-stone-500 font-serif italic">
+    No musician found.
+</p>
+
+    {/* O MODAL FOI SUBSTITUÍDO POR ESTA ÚNICA LINHA AQUI! */}
+    <ModalBiografias />
+
+</Layout>
+
+<script is:inline>
+// A Lógica da Barra de Pesquisa continua aqui, pois pertence só a esta página
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('buscaCatalogo'); 
+    const cards = document.querySelectorAll('.musico-card');
+    const noResultsCards = document.getElementById('noResultsCards');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            const termoBusca = searchInput.value.toLowerCase().trim();
+            let encontrouQualquer = false;
+
+            cards.forEach(card => {
+                const nomeCompositor = card.getAttribute('data-nome');
+                
+                if (nomeCompositor.includes(termoBusca)) {
+                    card.style.display = 'block';
+                    encontrouQualquer = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (encontrouQualquer) {
+                noResultsCards.classList.add('hidden');
+            } else {
+                noResultsCards.classList.remove('hidden');
+            }
+        });
+    }
+});
+</script>

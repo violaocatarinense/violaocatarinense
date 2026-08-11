@@ -1,0 +1,88 @@
+@import 'tailwindcss';
+
+@theme {
+    /* 1. Fonte Cinzel mantida para os títulos */
+    --font-serif: 'Cinzel', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+
+    --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-primary: #f67280;
+    --color-primary-content: #f5e3c9;
+    --color-complementary: #f5e3c9;
+    --background-image-noise: linear-gradient(
+            to bottom,
+            color-mix(in oklab, var(--color-gray-950) 0%, transparent),
+            color-mix(in oklab, var(--color-gray-950) 10%, transparent)
+        ),
+        url('/images/noise.png');
+}
+
+@layer base {
+    /* Aplicamos em HTML e BODY para garantir que a tela inteira pegue a cor */
+    html, body {
+        background-color: #fff7ed; /* Cor exata do orange-50 (Creme) */
+        color: #1c1917;            /* Cor exata do stone-900 (Marrom escuro) */
+        @apply min-h-screen antialiased; /* Garante altura mínima de 100% da tela */
+    }
+
+    h1 {
+        @apply font-serif text-4xl font-bold tracking-tight sm:text-5xl;
+    }
+
+    h2 {
+        @apply font-serif text-2xl font-bold sm:text-3xl text-red-900/80;
+    }
+
+    a:not(.btn) {
+        @apply underline transition hover:opacity-80;
+    }
+
+    pre {
+        @apply p-6 overflow-x-auto rounded-lg;
+    }
+
+    :not(pre) > code {
+        @apply px-1 py-0.5 font-mono rounded bg-gray-900 text-primary;
+        font-size: 0.9em;
+    }
+}
+
+@layer components {
+    .markdown {
+        > * {
+            @apply my-6;
+        }
+
+        :where(h1, h2) {
+            @apply mt-12 mb-6;
+        }
+
+        > :first-child {
+            @apply mt-0;
+        }
+
+        > :last-child {
+            @apply mb-0;
+        }
+    }
+
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 bg-primary text-primary-content cursor-pointer text-center font-semibold no-underline transition-colors;
+        padding: var(--btn-py, 0.875rem) var(--btn-px, 1.25rem);
+        font-size: var(--btn-font-size, 0.875rem);
+        border-radius: var(--btn-border-radius, 0.25rem);
+
+        &:hover {
+            @apply bg-primary/85;
+        }
+
+        &:disabled {
+            @apply text-gray-400 bg-gray-700;
+        }
+    }
+
+    .btn-lg {
+        --btn-font-size: 1.125rem;
+        --btn-px: 1.5rem;
+        --btn-py: 1.125rem;
+    }
+}
