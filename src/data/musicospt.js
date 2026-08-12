@@ -771,7 +771,7 @@ Psicossocial de Blumenau. Já atuou como músico violonista em recitais solo, m�
     eh_violonista: true,
   },
   {
-    id: "luizchatovani",
+    id: "luizmantovani",
     nome: "Luiz Mantovani",
     foto: "/images/pessoas/mantovanip.avif",
     bio: `<p>
