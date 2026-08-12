@@ -695,7 +695,7 @@ and guitar—with an emphasis on international pop rock.
     eh_violonista: true,
   },
     {
-    id: "luizchatovani",
+    id: "luizmantovani",
     nome: "Luiz Mantovani",
     foto: "/images/pessoas/mantovanip.avif",
     bio: `<p>
