@@ -1,0 +1,160 @@
+---
+// src/components/AudioPlayer.astro
+
+// 1. Substitua pelas URLs públicas geradas no seu bucket do Supabase
+const playlist = [
+  {
+    title: "Romanceiro",
+    artist: "Andrei Uller",
+    src: "https://rylphwqipmqmoqjqawem.supabase.co/storage/v1/object/public/audios/Romanceiro.mp3",
+  },
+  // Adicione outras faixas aqui conforme fizer upload no Supabase
+];
+---
+
+<aside
+  transition:persist="global-supabase-player"
+  class="fixed bottom-4 right-4 z-50 flex items-center gap-3 bg-[#6e1423] text-stone-100 px-4 py-3 rounded-2xl shadow-2xl backdrop-blur-md border border-rose-800/50 shadow-black/30"
+  <!-- Anterior -->
+  <button
+    id="btn-prev"
+    type="button"
+    class="p-2 text-rose-300/60 hover:text-rose-100 transition-colors cursor-pointer"
+    aria-label="Música anterior"
+  >
+    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+      <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+    </svg>
+  </button>
+
+  <!-- Play / Pause -->
+  <button
+    id="btn-play-pause"
+    type="button"
+    class="w-10 h-10 flex items-center justify-center rounded-full bg-amber-600/90 hover:bg-amber-500 text-white transition-transform active:scale-95 cursor-pointer shrink-0 shadow-md shadow-amber-950/30"
+    aria-label="Tocar ou pausar"
+  >
+    <svg id="icon-play" class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+    <svg id="icon-pause" class="w-5 h-5 fill-current hidden" viewBox="0 0 24 24">
+      <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+    </svg>
+  </button>
+
+  <!-- Próxima -->
+  <button
+    id="btn-next"
+    type="button"
+    class="p-2 text-rose-300/60 hover:text-rose-100 transition-colors cursor-pointer"
+    aria-label="Próxima música"
+  >
+    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+      <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+    </svg>
+  </button>
+
+  <!-- Informações da Faixa -->
+  <div class="text-xs leading-tight min-w-[130px] max-w-[200px] truncate pl-1">
+    <p id="player-title" class="font-bold text-rose-50 truncate">{playlist[0]?.title || "Sem título"}</p>
+    <p id="player-artist" class="text-rose-300/70 truncate">{playlist[0]?.artist || ""}</p>
+  </div>
+
+  <audio id="global-audio-element" preload="metadata"></audio>
+</aside>
+
+<script define:vars={{ playlist }}>
+  let currentIndex = 0;
+  let autoplayHandled = false;
+
+  function initPlayer() {
+    const audio = document.getElementById('global-audio-element');
+    const btnPlay = document.getElementById('btn-play-pause');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const iconPlay = document.getElementById('icon-play');
+    const iconPause = document.getElementById('icon-pause');
+    const trackTitle = document.getElementById('player-title');
+    const trackArtist = document.getElementById('player-artist');
+
+    if (!audio || !btnPlay || !playlist.length) return;
+
+    function updateUI() {
+      if (trackTitle) trackTitle.textContent = playlist[currentIndex].title;
+      if (trackArtist) trackArtist.textContent = playlist[currentIndex].artist;
+
+      if (audio.paused) {
+        iconPlay?.classList.remove('hidden');
+        iconPause?.classList.add('hidden');
+      } else {
+        iconPlay?.classList.add('hidden');
+        iconPause?.classList.remove('hidden');
+      }
+    }
+
+    function loadTrack(index, autoPlay = true) {
+      currentIndex = index;
+      audio.src = playlist[currentIndex].src;
+      updateUI();
+      if (autoPlay) {
+        audio.play().catch(() => {});
+      }
+    }
+
+    // Carrega a primeira faixa se estiver vazia
+    if (!audio.src) {
+      audio.src = playlist[0].src;
+    }
+    updateUI();
+
+    // LÓGICA DE AUTOPLAY NO CARREGAMENTO INICIAL
+    if (!autoplayHandled && audio.paused) {
+      autoplayHandled = true;
+
+      audio.play().catch(() => {
+        const triggerAutoplayOnInteraction = () => {
+          if (audio.paused) {
+            audio.play().then(updateUI).catch(() => {});
+          }
+          window.removeEventListener('click', triggerAutoplayOnInteraction);
+          window.removeEventListener('keydown', triggerAutoplayOnInteraction);
+          window.removeEventListener('touchstart', triggerAutoplayOnInteraction);
+        };
+
+        window.addEventListener('click', triggerAutoplayOnInteraction, { once: true });
+        window.addEventListener('keydown', triggerAutoplayOnInteraction, { once: true });
+        window.addEventListener('touchstart', triggerAutoplayOnInteraction, { once: true });
+      });
+    }
+
+    btnPlay.onclick = () => {
+      if (audio.paused) {
+        audio.play().catch(() => {});
+      } else {
+        audio.pause();
+      }
+      updateUI();
+    };
+
+    btnNext.onclick = () => {
+      const nextIndex = (currentIndex + 1) % playlist.length;
+      loadTrack(nextIndex, true);
+    };
+
+    btnPrev.onclick = () => {
+      const prevIndex = (currentIndex - 1 + playlist.length) % playlist.length;
+      loadTrack(prevIndex, true);
+    };
+
+    audio.onended = () => {
+      const nextIndex = (currentIndex + 1) % playlist.length;
+      loadTrack(nextIndex, true);
+    };
+
+    audio.onplay = updateUI;
+    audio.onpause = updateUI;
+  }
+
+  initPlayer();
+  document.addEventListener('astro:page-load', initPlayer);
+</script>
