@@ -2,8 +2,12 @@
 import '../../src/styles/globals.css';
 import '@fontsource-variable/inter/wght.css';
 import interWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+// O nome do arquivo é minúsculo, mas o nome do componente no Astro deve ser maiúsculo
+import AudioPlayer from '../components/audioplayer.astro';
 
 interface Props {
     title: string;
@@ -26,9 +30,11 @@ const { title } = Astro.props;
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+
+        <ClientRouter />
     </head>
     
-    <body class="antialiased text-stone-900 bg-[#fcfaf7] bg-[url('/images/noise.png')] bg-repeat min-h-screen flex flex-col">
+    <body class="antialiased text-stone-900 bg-[#fcfaf7] bg-[url('/images/noise.png')] bg-repeat min-h-screen flex flex-col relative">
         
         <Header />
 
@@ -39,6 +45,8 @@ const { title } = Astro.props;
         </div>
         
         <Footer />
+
+        <AudioPlayer />
         
     </body>
 </html>
