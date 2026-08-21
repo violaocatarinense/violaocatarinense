@@ -183,7 +183,7 @@ Although he earned a Bachelor’s degree in Accounting in 1985, he spent little 
 system for the guitar consisting of graphic representations of popular rhythms for the right hand. He graduated in Music Theory from the Lagunense Conservatory of Music, where he taught popular and classical guitar from 1987 to 2006. In 2001, he was invited 
 to participate in the "Seis Cordas" (Six Strings) Project, which featured Santa Catarina's guitarist-composers and culminated in the recording of a CD produced by Renato Pimentel and sponsored by the Santa Catarina Cultural Foundation. Two of his compositions,
 titled Valsa e Bolero and Adagio, were part of this project. This event served as a major incentive for him to continue composing. In February 2020, he graduated from the State University of Santa Catarina (UDESC) with a Bachelor’s degree in Music, specializing 
-in guitar. Currently, in addition to teaching popular and classical guitar, he performs in various musical events as a solo musician in recitals, in the "voice and guitar" format, or collaborating with other musicians in night clubs and events throughout the 
+in guitar. Currently, in addition to teaching popular and classical guitar, he  performs in various musical events as a solo musician in recitals, in the "voice and guitar" format, or collaborating with other musicians in night clubs and events throughout the 
 southern region of Santa Catarina.
 <div style="color: gray; font-size: 0.8em; text-align: right; margin-top: 5px;">
 Source: Provided by the musician 
