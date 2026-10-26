@@ -707,10 +707,27 @@ Since 2003, Luiz Mantovani has been a faculty member at the State University of 
 
 
 <div style="color: gray; font-size: 0.8em; text-align: right; margin-top: 5px;">
-  Fonte: Provided by the musician
+  Source: Provided by the musician
 </div>
 </p>`,   
     galeria: ["/images/pessoas/mantovani2.avif","/images/pessoas/mantovani3.avif","/images/pessoas/mantovani1.avif"],
+    eh_compositor: false,
+    eh_violonista: true,
+  },
+{
+    id: "natalialivramento",
+    nome: "Natália Livramento",
+    foto: "/images/pessoas/natlivramento1.avif",
+    bio: `<p>
+Master’s degree in Musicology–Ethnomusicology from the Santa Catarina State University (UDESC, 2017). Bachelor’s degree in Music from the University of Vale do Itajaí (UNIVALI, 2012).
+
+She was a CAPES scholarship recipient at the Santa Catarina State University (UDESC). Her experience lies in the field of Arts, with an emphasis on Music, 
+focusing primarily on popular music studies and Brazilian musical genres, particularly samba and choro.
+<div style="color: gray; font-size: 0.8em; text-align: right; margin-top: 5px;">
+  Source: Lattes Curriculum
+</div>
+</p>`,   
+    galeria: ["/images/pessoas/natlivramento2.avif","/images/pessoas/natlivramento3.avif"],
     eh_compositor: false,
     eh_violonista: true,
   },
