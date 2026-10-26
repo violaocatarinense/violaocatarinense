@@ -727,7 +727,7 @@ focusing primarily on popular music studies and Brazilian musical genres, partic
   Source: Lattes Curriculum
 </div>
 </p>`,   
-    galeria: ["/images/pessoas/natlivramento2.avif","/images/pessoas/natlivramento3.avif"],
+    galeria: ["/images/pessoas/natlivramento2.avif","/images/pessoas/natlivramento1.avif"],
     eh_compositor: false,
     eh_violonista: true,
   },
