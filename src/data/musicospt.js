@@ -789,6 +789,23 @@ Desde 2003, Luiz Mantovani é professor da Universidade do Estado de Santa Catar
     eh_compositor: false,
     eh_violonista: true,
   },
+  {
+    id: "natalialivramento",
+    nome: "Natália Livramento",
+    foto: "/images/pessoas/natlivramento1.avif",
+    bio: `<p>
+Mestra em Musicologia-Etnomusicologia pela Universidade do Estado de Santa Catarina - UDESC (2017). Possui graduação em Música pela Universidade do Vale do Itajaí - UNIVALI, (2012). 
+Foi bolsista capes da Universidade do Estado de Santa Catarina - UDESC Tem experiência na área de Artes, com ênfase em Música, atuando principalmente nos seguintes temas: estudos em música popular; 
+gêneros musicais brasileiros (samba e choro)
+<div style="color: gray; font-size: 0.8em; text-align: right; margin-top: 5px;">
+  Fonte: Currículo Lattes
+</div>
+</p>`,   
+    galeria: ["/images/pessoas/natlivramento2.avif","/images/pessoas/natlivramento3.avif"],
+    eh_compositor: false,
+    eh_violonista: true,
+  },
+
 
 
 
